@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ bill.bill_number }} - Medical Bill</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: white;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 3px solid #2c3e50;
+            margin-bottom: 30px;
+        }
+        
+        .hospital-name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .hospital-subtitle {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        
+        .bill-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e74c3c;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .bill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .patient-info, .bill-details {
+            flex: 1;
+        }
+        
+        .patient-info h3, .bill-details h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 18px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .info-value {
+            color: #333;
+        }
+        
+        .tests-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        .tests-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        .tests-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tests-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .tests-table tr:hover {
+            background: #e9ecef;
+        }
+        
+        .total-row {
+            background: #2c3e50 !important;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .total-row td {
+            padding: 15px 12px;
+        }
+        
+        .summary-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .summary-box {
+            flex: 1;
+            margin: 0 10px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .summary-box h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .summary-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 2px solid #ddd;
+            text-align: center;
+            color: #7f8c8d;
+        }
+        
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+        
+        .signature-box {
+            flex: 1;
+            text-align: center;
+            margin: 0 20px;
+        }
+        
+        .signature-line {
+            border-top: 1px solid #333;
+            margin-top: 50px;
+            padding-top: 10px;
+        }
+        
+        @media print {
+            body {
+                font-size: 12px;
+            }
+            
+            .header {
+                padding: 10px;
+            }
+            
+            .hospital-name {
+                font-size: 20px;
+            }
+            
+            .bill-title {
+                font-size: 18px;
+            }
+            
+            .bill-info {
+                padding: 10px;
+            }
+            
+            .tests-table th,
+            .tests-table td {
+                padding: 6px 8px;
+            }
+            
+            .summary-box {
+                padding: 10px;
+            }
+            
+            .summary-value {
+                font-size: 18px;
+            }
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="hospital-name">MEDICAL BILLING SYSTEM</div>
+        <div class="hospital-subtitle">Center-wise Billing Services</div>
+        <div class="bill-title">{{ bill.bill_number }}</div>
+    </div>
+
+    <div class="bill-info">
+        <div class="patient-info">
+            <h3>Center Information</h3>
+            <div class="info-row">
+                <span class="info-label">Center Name:</span>
+                <span class="info-value">{{ bill.centre_name }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Bill Type:</span>
+                <span class="info-value">{{ bill.center_type }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Total Tests:</span>
+                <span class="info-value">{{ bill.test_items|length }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">MRP Total:</span>
+                <span class="info-value">₹{{ "%.2f"|format(bill.total_mrp) }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Rate Total:</span>
+                <span class="info-value">₹{{ "%.2f"|format(bill.total_rate) }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Sharing Total:</span>
+                <span class="info-value">₹{{ "%.2f"|format(bill.total_sharing) }}</span>
+            </div>
+        </div>
+        
+        <div class="bill-details">
+            <h3>Bill Details</h3>
+            <div class="info-row">
+                <span class="info-label">Bill Number:</span>
+                <span class="info-value">{{ bill.bill_number }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Bill Date:</span>
+                <span class="info-value">{{ bill.bill_date }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Center:</span>
+                <span class="info-value">{{ bill.centre_name }}</span>
+            </div>
+        </div>
+    </div>
+
+    <table class="tests-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Registered Date</th>
+                <th>Visit Code</th>
+                <th>Patient Name</th>
+                <th>Test Name</th>
+                <th>MRP</th>
+                <th>Rate</th>
+                <th>Sharing</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in bill.test_items %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ item.registered_date }}</td>
+                <td>{{ item.visit_code }}</td>
+                <td>{{ item.patient_name }}</td>
+                <td><strong>{{ item.test_name }}</strong></td>
+                <td>₹{{ "%.2f"|format(item.mrp) }}</td>
+                <td>₹{{ "%.2f"|format(item.rate) }}</td>
+                <td>₹{{ "%.2f"|format(item.sharing_amount) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr class="total-row">
+                <td colspan="5"><strong>TOTAL</strong></td>
+                <td><strong>₹{{ "%.2f"|format(bill.total_mrp) }}</strong></td>
+                <td><strong>₹{{ "%.2f"|format(bill.total_rate) }}</strong></td>
+                <td><strong>₹{{ "%.2f"|format(bill.total_sharing) }}</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="summary-section">
+        <div class="summary-box">
+            <h4>Total Tests</h4>
+            <div class="summary-value">{{ bill.test_items|length }}</div>
+        </div>
+        <div class="summary-box">
+            <h4>MRP Total</h4>
+            <div class="summary-value">₹{{ "%.2f"|format(bill.total_mrp) }}</div>
+        </div>
+        <div class="summary-box">
+            <h4>Rate Total</h4>
+            <div class="summary-value">₹{{ "%.2f"|format(bill.total_rate) }}</div>
+        </div>
+        <div class="summary-box">
+            <h4>Sharing Total</h4>
+            <div class="summary-value">₹{{ "%.2f"|format(bill.total_sharing) }}</div>
+        </div>
+    </div>
+
+    <div class="signature-section">
+        <div class="signature-box">
+            <div class="signature-line"></div>
+            <p><strong>Patient Signature</strong></p>
+        </div>
+        <div class="signature-box">
+            <div class="signature-line"></div>
+            <p><strong>Authorized Signature</strong></p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>Thank you for choosing our medical services!</strong></p>
+        <p>For any queries, please contact our billing department.</p>
+        <p>Generated on {{ bill.bill_date }} | Bill Number: {{ bill.bill_number }}</p>
+    </div>
+</body>
+</html> 

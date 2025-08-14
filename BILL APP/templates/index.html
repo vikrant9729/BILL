@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+
+{% block title %}Medical Billing System - Professional Invoice Generation{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h1 class="display-4 text-primary mb-3">
+                    <i class="fas fa-hospital me-3"></i>
+                    Medical Billing System
+                </h1>
+                <p class="lead text-muted">
+                    Professional Medical Test Billing Automation with AI-Powered Error Handling
+                </p>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="alert alert-info">
+                            <i class="fas fa-robot me-2"></i>
+                            <strong>AI-Powered:</strong> Get intelligent assistance for error handling and usage guidance
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Main Upload Section -->
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0">
+                                <i class="fas fa-upload me-2"></i>
+                                Upload Excel File
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="{{ url_for('upload_file') }}" enctype="multipart/form-data" id="uploadForm">
+                                <div class="mb-4">
+                                    <label for="file" class="form-label">Select Excel File:</label>
+                                    <input type="file" class="form-control" id="file" name="file" accept=".xlsx,.xls" required>
+                                    <div class="form-text">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Supported formats: .xlsx, .xls (Max size: 16MB)
+                                    </div>
+                                </div>
+
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <label for="centerType" class="form-label">Center Type:</label>
+                                        <select class="form-select" id="centerType" name="center_type">
+                                            <option value="B2B">B2B Centers</option>
+                                            <option value="HLM">HLM Centers</option>
+                                            <option value="auto">Auto Detect</option>
+                                        </select>
+                                        <div class="form-text">
+                                            <i class="fas fa-info-circle me-1"></i>
+                                            Choose center type or let system auto-detect
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="sharingPercentage" class="form-label">Sharing Percentage (HLM):</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="sharingPercentage" 
+                                                   name="sharing_percentage" min="0" max="100" step="0.01" 
+                                                   placeholder="55">
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                        <div class="form-text">
+                                            <i class="fas fa-info-circle me-1"></i>
+                                            For HLM centers only (default: 55%)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg" id="uploadBtn">
+                                        <i class="fas fa-upload me-2"></i>
+                                        Upload and Process
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Excel Format Requirements -->
+                    <div class="card mt-4">
+                        <div class="card-header bg-warning text-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-table me-2"></i>
+                                Excel Format Requirements
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Required Columns:</h6>
+                                    <ul class="list-unstyled">
+                                        <li><i class="fas fa-check text-success me-2"></i>CENTER NAME</li>
+                                        <li><i class="fas fa-check text-success me-2"></i>RegisteredDate</li>
+                                        <li><i class="fas fa-check text-success me-2"></i>PatientVisitCode</li>
+                                        <li><i class="fas fa-check text-success me-2"></i>PatientName</li>
+                                        <li><i class="fas fa-check text-success me-2"></i>TEST NAME</li>
+                                        <li><i class="fas fa-check text-success me-2"></i>MRP</li>
+                                        <li><i class="fas fa-check text-success me-2"></i>CentreTestRate</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Optional Columns:</h6>
+                                    <ul class="list-unstyled">
+                                        <li><i class="fas fa-info text-info me-2"></i>Age</li>
+                                        <li><i class="fas fa-info text-info me-2"></i>Gender</li>
+                                        <li><i class="fas fa-info text-info me-2"></i>MobileNumber</li>
+                                        <li><i class="fas fa-info text-info me-2"></i>TEST TYPE</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-lightbulb me-2"></i>
+                                <strong>Pro Tip:</strong> Use the AI Assistant for help with Excel formatting and error resolution.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions & Info -->
+                <div class="col-lg-4">
+                    <!-- Quick Actions -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-bolt me-2"></i>
+                                Quick Actions
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <a href="{{ url_for('generate_all_bills') }}" class="btn btn-outline-primary">
+                                    <i class="fas fa-cogs me-2"></i>
+                                    Generate All Bills
+                                </a>
+                                <a href="{{ url_for('generate_manual_bill') }}" class="btn btn-outline-success">
+                                    <i class="fas fa-hand-pointer me-2"></i>
+                                    Generate Manual Bill
+                                </a>
+                                <a href="{{ url_for('generate_multiple_bills') }}" class="btn btn-outline-warning">
+                                    <i class="fas fa-list-check me-2"></i>
+                                    Generate Multiple Bills
+                                </a>
+                                <a href="{{ url_for('generate_hlm_bills') }}" class="btn btn-outline-info">
+                                    <i class="fas fa-hospital me-2"></i>
+                                    Generate HLM Bills
+                                </a>
+                                <a href="{{ url_for('generate_b2b_bills') }}" class="btn btn-outline-secondary">
+                                    <i class="fas fa-building me-2"></i>
+                                    Generate B2B Bills
+                                </a>
+                                <a href="{{ url_for('ai_assistance') }}" class="btn btn-outline-dark">
+                                    <i class="fas fa-robot me-2"></i>
+                                    AI Assistance
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Features -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-star me-2"></i>
+                                Professional Features
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <strong>AI-Powered Error Handling</strong>
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <strong>Professional Invoice Numbers</strong>
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <strong>Amount in Words Conversion</strong>
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <strong>Statutory Compliance Notes</strong>
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <strong>Bank Details Integration</strong>
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <strong>Center Type Auto-Detection</strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Billing Logic -->
+                    <div class="card">
+                        <div class="card-header bg-warning text-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-calculator me-2"></i>
+                                Billing Logic
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <h6 class="text-primary">B2B Centers:</h6>
+                                <p class="small mb-2">Sharing = MRP - Rate</p>
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="text-info">HLM Centers:</h6>
+                                <p class="small mb-2">Rate = MRP - Sharing<br>(where Sharing = MRP × Percentage)</p>
+                            </div>
+                            <div class="alert alert-light small">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <strong>Note:</strong> HLM centers support test-type specific sharing percentages.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const uploadForm = document.getElementById('uploadForm');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const fileInput = document.getElementById('file');
+    
+    // File upload progress
+    uploadForm.addEventListener('submit', function() {
+        uploadBtn.disabled = true;
+        uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+    });
+    
+    // File validation
+    fileInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const fileSize = file.size / (1024 * 1024); // MB
+            if (fileSize > 16) {
+                alert('File size exceeds 16MB limit. Please choose a smaller file.');
+                this.value = '';
+            }
+        }
+    });
+    
+    // Center type change handler
+    document.getElementById('centerType').addEventListener('change', function() {
+        const sharingInput = document.getElementById('sharingPercentage');
+        if (this.value === 'HLM') {
+            sharingInput.required = true;
+            sharingInput.placeholder = '55';
+        } else {
+            sharingInput.required = false;
+            sharingInput.placeholder = '55 (optional)';
+        }
+    });
+});
+</script>
+{% endblock %} 

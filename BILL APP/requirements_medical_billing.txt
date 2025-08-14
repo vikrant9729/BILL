@@ -1,0 +1,29 @@
+pandas==2.3.1
+openpyxl==3.1.5
+reportlab==4.0.4
+requests==2.31.0
+python-dotenv==1.0.0
+openai==1.3.0
+Flask==2.3.3
+Werkzeug==2.3.7
+Jinja2==3.1.2
+MarkupSafe==2.1.3
+itsdangerous==2.1.2
+click==8.1.7
+blinker==1.6.3
+xlrd==2.0.1 
+
+
+# --- Data processing ---
+xlsxwriter==3.1.0     # For generating Excel files with formatting
+
+# --- PDF generation ---
+pdfkit==1.0.0         # Uses wkhtmltopdf (needs system install)
+xhtml2pdf==0.2.11     # Pure-Python PDF generation
+
+# --- Utilities ---
+python-dateutil==2.8.2
+pytz==2023.3
+
+# --- Testing ---
+pytest==7.4.2

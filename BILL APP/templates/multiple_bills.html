@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block title %}Multiple Bill Generation - Medical Billing System{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">
+        <i class="fas fa-list-check me-2"></i>
+        Multiple Bill Generation
+    </h2>
+    <div>
+        <a href="{{ url_for('bills') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Bills
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-warning text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-building me-2"></i>
+                    Select Multiple Centers for Bill Generation
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{{ url_for('generate_multiple_bills') }}">
+                    <div class="mb-3">
+                        <label class="form-label">Choose Centers:</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-outline-primary btn-sm mb-2" onclick="selectAll()">
+                                    <i class="fas fa-check-square me-1"></i>Select All
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm mb-2" onclick="deselectAll()">
+                                    <i class="fas fa-square me-1"></i>Deselect All
+                                </button>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <span class="badge bg-info" id="selectedCount">0 selected</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded p-3" style="max-height: 400px; overflow-y: auto;">
+                            {% for bill in bills %}
+                            <div class="form-check mb-2">
+                                <input class="form-check-input center-checkbox" type="checkbox" 
+                                       name="selected_centers" value="{{ bill.centre_name }}" 
+                                       id="center_{{ loop.index }}"
+                                       data-tests="{{ bill.test_items|length }}"
+                                       data-mrp="{{ bill.total_mrp }}"
+                                       data-rate="{{ bill.total_rate }}"
+                                       data-sharing="{{ bill.total_sharing }}">
+                                <label class="form-check-label" for="center_{{ loop.index }}">
+                                    <strong>{{ bill.centre_name }}</strong>
+                                    <small class="text-muted">({{ bill.test_items|length }} tests)</small>
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div id="selectionSummary" class="alert alert-info" style="display: none;">
+                        <h6>Selection Summary:</h6>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <strong>Centers:</strong> <span id="centerCount">0</span>
+                            </div>
+                            <div class="col-md-3">
+                                <strong>Tests:</strong> <span id="totalTests">0</span>
+                            </div>
+                            <div class="col-md-3">
+                                <strong>MRP:</strong> ₹<span id="totalMrp">0.00</span>
+                            </div>
+                            <div class="col-md-3">
+                                <strong>Rate:</strong> ₹<span id="totalRate">0.00</span>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-3">
+                                <strong>Sharing:</strong> ₹<span id="totalSharing">0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-warning btn-lg" id="generateBtn" disabled>
+                            <i class="fas fa-file-invoice me-2"></i>
+                            Generate Selected Bills
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Instructions
+                </h5>
+            </div>
+            <div class="card-body">
+                <ol>
+                    <li>Select multiple centers using the checkboxes</li>
+                    <li>Use "Select All" or "Deselect All" for quick selection</li>
+                    <li>Review the selection summary that appears</li>
+                    <li>Click "Generate Selected Bills" to create bills</li>
+                    <li>All selected bills will be available for download</li>
+                </ol>
+                
+                <div class="alert alert-warning mt-3">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Note:</strong> This will generate bills for all selected centers.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let selectedCenters = new Set();
+
+function updateSelectionSummary() {
+    const checkboxes = document.querySelectorAll('.center-checkbox:checked');
+    const summaryDiv = document.getElementById('selectionSummary');
+    const generateBtn = document.getElementById('generateBtn');
+    const selectedCountSpan = document.getElementById('selectedCount');
+    
+    selectedCenters.clear();
+    let totalTests = 0;
+    let totalMrp = 0;
+    let totalRate = 0;
+    let totalSharing = 0;
+    
+    checkboxes.forEach(checkbox => {
+        selectedCenters.add(checkbox.value);
+        totalTests += parseInt(checkbox.dataset.tests);
+        totalMrp += parseFloat(checkbox.dataset.mrp);
+        totalRate += parseFloat(checkbox.dataset.rate);
+        totalSharing += parseFloat(checkbox.dataset.sharing);
+    });
+    
+    // Update display
+    selectedCountSpan.textContent = `${selectedCenters.size} selected`;
+    document.getElementById('centerCount').textContent = selectedCenters.size;
+    document.getElementById('totalTests').textContent = totalTests;
+    document.getElementById('totalMrp').textContent = totalMrp.toFixed(2);
+    document.getElementById('totalRate').textContent = totalRate.toFixed(2);
+    document.getElementById('totalSharing').textContent = totalSharing.toFixed(2);
+    
+    // Show/hide summary and enable/disable button
+    if (selectedCenters.size > 0) {
+        summaryDiv.style.display = 'block';
+        generateBtn.disabled = false;
+    } else {
+        summaryDiv.style.display = 'none';
+        generateBtn.disabled = true;
+    }
+}
+
+function selectAll() {
+    document.querySelectorAll('.center-checkbox').forEach(checkbox => {
+        checkbox.checked = true;
+    });
+    updateSelectionSummary();
+}
+
+function deselectAll() {
+    document.querySelectorAll('.center-checkbox').forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    updateSelectionSummary();
+}
+
+// Add event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.center-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', updateSelectionSummary);
+    });
+    
+    // Initialize
+    updateSelectionSummary();
+});
+</script>
+{% endblock %} 

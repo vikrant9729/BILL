@@ -1,0 +1,356 @@
+{% extends "base.html" %}
+
+{% block title %}All Bills - Medical Billing System{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">
+        <i class="fas fa-file-invoice-dollar me-2"></i>
+        All Generated Bills
+    </h2>
+    <div class="btn-group">
+        <a href="{{ url_for('download_all_bills') }}" class="btn btn-success">
+            <i class="fas fa-file-archive me-2"></i>Download All HTML (ZIP)
+        </a>
+        <a href="{{ url_for('download_all_excel') }}" class="btn btn-warning">
+            <i class="fas fa-file-excel me-2"></i>Download All Excel (ZIP)
+        </a>
+        <a href="{{ url_for('download_all_pdf') }}" class="btn btn-danger">
+            <i class="fas fa-file-pdf me-2"></i>Download All PDF (ZIP)
+        </a>
+    </div>
+</div>
+
+<!-- Bill Generation Options -->
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">
+            <i class="fas fa-cogs me-2"></i>
+            Bill Generation Options
+        </h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3 mb-2">
+                <a href="{{ url_for('generate_all_bills') }}" class="btn btn-outline-primary w-100">
+                    <i class="fas fa-cogs me-2"></i>
+                    Generate All Bills
+                </a>
+            </div>
+            <div class="col-md-3 mb-2">
+                <a href="{{ url_for('generate_manual_bill') }}" class="btn btn-outline-success w-100">
+                    <i class="fas fa-hand-pointer me-2"></i>
+                    Generate Manual Bill
+                </a>
+            </div>
+            <div class="col-md-3 mb-2">
+                <a href="{{ url_for('generate_multiple_bills') }}" class="btn btn-outline-warning w-100">
+                    <i class="fas fa-list-check me-2"></i>
+                    Generate Multiple Bills
+                </a>
+            </div>
+            <div class="col-md-3 mb-2">
+                <a href="{{ url_for('generate_hlm_bills') }}" class="btn btn-outline-info w-100">
+                    <i class="fas fa-hospital me-2"></i>
+                    Generate HLM Bills
+                </a>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-3 mb-2">
+                <a href="{{ url_for('generate_b2b_bills') }}" class="btn btn-outline-secondary w-100">
+                    <i class="fas fa-building me-2"></i>
+                    Generate B2B Bills
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Summary Statistics -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="text-primary">{{ bills|length if bills else 0 }}</h3>
+                <p class="text-muted mb-0">Total Bills</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="text-warning">{{ "%.2f"|format(total_mrp) if total_mrp is defined else 0.00 }}</h3>
+                <p class="text-muted mb-0">Total MRP</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="text-success">{{ "%.2f"|format(total_rate) if total_rate is defined else 0.00 }}</h3>
+                <p class="text-muted mb-0">Total Value</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="text-info">{{ "%.2f"|format(total_sharing) if total_sharing is defined else 0.00 }}</h3>
+                <p class="text-muted mb-0">Total Sharing</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="input-group">
+            <span class="input-group-text">
+                <i class="fas fa-search"></i>
+            </span>
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by center name or bill number...">
+        </div>
+    </div>
+    <div class="col-md-3">
+        <select id="sortSelect" class="form-select">
+            <option value="bill_number">Sort by Bill Number</option>
+            <option value="centre_name">Sort by Center Name</option>
+            <option value="total_amount">Sort by Total Amount</option>
+            <option value="bill_date">Sort by Bill Date</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <select id="filterSelect" class="form-select">
+            <option value="all">All Bills</option>
+            <option value="high">High Amount (>₹1000)</option>
+            <option value="medium">Medium Amount (₹500-₹1000)</option>
+            <option value="low">Low Amount (<₹500)</option>
+        </select>
+    </div>
+</div>
+
+<div class="row" id="billsContainer">
+    {% if bills %}
+        {% for bill in bills %}
+        <div class="col-lg-6 col-xl-4 mb-4 bill-card-item" 
+             data-centre-name="{{ bill.centre_name.lower() if bill.centre_name else '' }}"
+             data-bill-number="{{ bill.bill_number if bill.bill_number else '' }}"
+             data-total-amount="{{ bill.total_rate if bill.total_rate is defined else 0 }}"
+             data-bill-date="{{ bill.bill_date if bill.bill_date else '' }}">
+            <div class="card bill-card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h6 class="bill-number">{{ bill.bill_number if bill.bill_number else 'N/A' }}</h6>
+                            <small class="text-muted">Center: {{ bill.centre_name if bill.centre_name else 'N/A' }}</small>
+                        </div>
+                        <span class="badge bg-primary">{{ bill.test_items|length if bill.test_items else 0 }} Tests</span>
+                    </div>
+                    
+                    <h6 class="centre-name mb-2">{{ bill.centre_name if bill.centre_name else 'N/A' }}</h6>
+                    
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <small class="text-muted d-block">Bill Date: {{ bill.bill_date if bill.bill_date else 'N/A' }}</small>
+                            <small class="text-muted d-block">Total Tests: {{ bill.test_items|length if bill.test_items else 0 }}</small>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted d-block">MRP Total: {{ "%.2f"|format(bill.total_mrp) if bill.total_mrp is defined else 0.00 }}</small>
+                            <small class="text-muted d-block">Rate Total: {{ "%.2f"|format(bill.total_rate) if bill.total_rate is defined else 0.00 }}</small>
+                        </div>
+                    </div>
+                    
+                    <div class="border-top pt-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <small class="text-muted d-block">MRP: {{ "%.2f"|format(bill.total_mrp) if bill.total_mrp is defined else 0.00 }}</small>
+                                <small class="text-muted d-block">Value: {{ "%.2f"|format(bill.total_rate) if bill.total_rate is defined else 0.00 }}</small>
+                                <small class="text-muted d-block">Sharing: {{ "%.2f"|format(bill.total_sharing) if bill.total_sharing is defined else 0.00 }}</small>
+                            </div>
+                            <div class="text-end">
+                                <a href="{{ url_for('view_bill', bill_index=loop.index0) }}" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-eye me-1"></i>View
+                                </a>
+                                <a href="{{ url_for('download_bill', bill_index=loop.index0) }}" class="btn btn-outline-success btn-sm">
+                                    <i class="fas fa-download me-1"></i>Download
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12 text-center">
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                No bills available. Please upload an Excel file first.
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<div class="text-center mt-4" id="noResults" style="display: none;">
+    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+    <h4 class="text-muted">No bills found</h4>
+    <p class="text-muted">Try adjusting your search criteria or filters.</p>
+</div>
+
+<!-- Detailed Summary Table -->
+{% if bills %}
+<div class="card mt-5">
+    <div class="card-header bg-dark text-white">
+        <h5 class="mb-0">
+            <i class="fas fa-table me-2"></i>
+            Summary Table
+        </h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Center Name</th>
+                        <th>Bill Number</th>
+                        <th>Tests</th>
+                        <th class="text-end">Total MRP</th>
+                        <th class="text-end">Total Value</th>
+                        <th class="text-end">Total Sharing</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bill in bills %}
+                    <tr>
+                        <td>{{ bill.centre_name if bill.centre_name else 'N/A' }}</td>
+                        <td>{{ bill.bill_number if bill.bill_number else 'N/A' }}</td>
+                        <td>{{ bill.test_items|length if bill.test_items else 0 }}</td>
+                        <td class="text-end">{{ "%.2f"|format(bill.total_mrp) if bill.total_mrp is defined else 0.00 }}</td>
+                        <td class="text-end">{{ "%.2f"|format(bill.total_rate) if bill.total_rate is defined else 0.00 }}</td>
+                        <td class="text-end">{{ "%.2f"|format(bill.total_sharing) if bill.total_sharing is defined else 0.00 }}</td>
+                        <td>
+                            <a href="{{ url_for('view_bill', bill_index=loop.index0) }}" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{{ url_for('download_bill', bill_index=loop.index0) }}" class="btn btn-outline-success btn-sm">
+                                <i class="fas fa-download"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot class="table-dark">
+                    <tr>
+                        <td colspan="3"><strong>Grand Total:</strong></td>
+                        <td class="text-end"><strong>{{ "%.2f"|format(total_mrp) if total_mrp is defined else 0.00 }}</strong></td>
+                        <td class="text-end"><strong>{{ "%.2f"|format(total_rate) if total_rate is defined else 0.00 }}</strong></td>
+                        <td class="text-end"><strong>{{ "%.2f"|format(total_sharing) if total_sharing is defined else 0.00 }}</strong></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const sortSelect = document.getElementById('sortSelect');
+    const filterSelect = document.getElementById('filterSelect');
+    const billsContainer = document.getElementById('billsContainer');
+    const noResults = document.getElementById('noResults');
+    const billCards = document.querySelectorAll('.bill-card-item');
+
+    function filterAndSortBills() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const sortBy = sortSelect.value;
+        const filterBy = filterSelect.value;
+        
+        let visibleCards = 0;
+        
+        billCards.forEach(card => {
+            const centreName = card.dataset.centreName || '';
+            const billNumber = card.dataset.billNumber || '';
+            const totalAmount = parseFloat(card.dataset.totalAmount) || 0;
+            
+            // Search filter
+            const matchesSearch = centreName.includes(searchTerm) || 
+                                billNumber.toLowerCase().includes(searchTerm);
+            
+            // Amount filter
+            let matchesFilter = true;
+            if (filterBy === 'high') {
+                matchesFilter = totalAmount > 1000;
+            } else if (filterBy === 'medium') {
+                matchesFilter = totalAmount >= 500 && totalAmount <= 1000;
+            } else if (filterBy === 'low') {
+                matchesFilter = totalAmount < 500;
+            }
+            
+            if (matchesSearch && matchesFilter) {
+                card.style.display = 'block';
+                visibleCards++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        
+        // Show/hide no results message
+        if (visibleCards === 0) {
+            noResults.style.display = 'block';
+        } else {
+            noResults.style.display = 'none';
+        }
+        
+        // Sort cards
+        const cardsArray = Array.from(billCards);
+        cardsArray.sort((a, b) => {
+            let aValue, bValue;
+            
+            switch(sortBy) {
+                case 'centre_name':
+                    aValue = a.dataset.centreName || '';
+                    bValue = b.dataset.centreName || '';
+                    break;
+                case 'total_amount':
+                    aValue = parseFloat(a.dataset.totalAmount) || 0;
+                    bValue = parseFloat(b.dataset.totalAmount) || 0;
+                    break;
+                case 'bill_date':
+                    aValue = a.dataset.billDate || '';
+                    bValue = b.dataset.billDate || '';
+                    break;
+                default: // bill_number
+                    aValue = a.dataset.billNumber || '';
+                    bValue = b.dataset.billNumber || '';
+            }
+            
+            if (typeof aValue === 'number' && typeof bValue === 'number') {
+                return bValue - aValue; // Descending for amounts
+            } else {
+                return aValue.localeCompare(bValue);
+            }
+        });
+        
+        // Reorder cards in DOM
+        cardsArray.forEach(card => {
+            billsContainer.appendChild(card);
+        });
+    }
+    
+    // Event listeners
+    if (searchInput) searchInput.addEventListener('input', filterAndSortBills);
+    if (sortSelect) sortSelect.addEventListener('change', filterAndSortBills);
+    if (filterSelect) filterSelect.addEventListener('change', filterAndSortBills);
+    
+    // Initialize
+    filterAndSortBills();
+});
+</script>
+{% endblock %} 

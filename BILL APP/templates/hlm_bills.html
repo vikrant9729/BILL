@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+
+{% block title %}HLM Bill Generation - Medical Billing System{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">
+        <i class="fas fa-hospital me-2"></i>
+        HLM Bill Generation
+    </h2>
+    <div>
+        <a href="{{ url_for('bills') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Bills
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-percentage me-2"></i>
+                    HLM Bill Generation with Sharing Percentage
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{{ url_for('generate_hlm_bills') }}">
+                    <div class="mb-4">
+                        <label for="sharingPercentage" class="form-label">Sharing Percentage:</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="sharingPercentage" 
+                                   name="sharing_percentage" min="0" max="100" step="0.01" 
+                                   placeholder="Enter sharing percentage (e.g., 55)" required>
+                            <span class="input-group-text">%</span>
+                        </div>
+                        <small class="form-text text-muted">
+                            Enter the sharing percentage to be applied to all HLM bills (e.g., 55 for 55%)
+                        </small>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label">Sharing Type:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sharing_type" 
+                                   id="overall_sharing" value="overall" checked>
+                            <label class="form-check-label" for="overall_sharing">
+                                <strong>Overall Sharing Percentage</strong>
+                                <small class="text-muted d-block">Apply the same percentage to all test types</small>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sharing_type" 
+                                   id="test_type_sharing" value="test_type">
+                            <label class="form-check-label" for="test_type_sharing">
+                                <strong>Test Type Specific Sharing</strong>
+                                <small class="text-muted d-block">Set different percentages for different test types</small>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div id="testTypeSharing" class="mb-4" style="display: none;">
+                        <label class="form-label">Test Type Sharing Percentages:</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-2">
+                                    <label class="form-label">Blood Tests:</label>
+                                    <input type="number" class="form-control" name="blood_test_sharing" 
+                                           min="0" max="100" step="0.01" placeholder="55">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">Urine Tests:</label>
+                                    <input type="number" class="form-control" name="urine_test_sharing" 
+                                           min="0" max="100" step="0.01" placeholder="60">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-2">
+                                    <label class="form-label">X-Ray Tests:</label>
+                                    <input type="number" class="form-control" name="xray_test_sharing" 
+                                           min="0" max="100" step="0.01" placeholder="50">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">Other Tests:</label>
+                                    <input type="number" class="form-control" name="other_test_sharing" 
+                                           min="0" max="100" step="0.01" placeholder="55">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <h6><i class="fas fa-info-circle me-2"></i>HLM Centers:</h6>
+                        <ul class="mb-0">
+                            <li>Manglam_Diagnostics_Agroha</li>
+                            <li>Hansi_Lab_MANGLAM</li>
+                            <li>JIND_MANGLAM_LAB_HISAR</li>
+                            <li>Narwana_Manglam_Lab</li>
+                            <li>Sanyam_Lab,_Inside_Satija_Healthcare,_H..</li>
+                            <li>Shri_Bala_JI_Lab_Isherwal,_Miran</li>
+                            <li>Vikash_Laboratory,_Java_Hospital,_Tosha..</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-info btn-lg">
+                            <i class="fas fa-file-invoice me-2"></i>
+                            Generate HLM Bills
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Instructions
+                </h5>
+            </div>
+            <div class="card-body">
+                <ol>
+                    <li>Enter the sharing percentage for HLM bills</li>
+                    <li>Choose between overall or test-type specific sharing</li>
+                    <li>If using test-type specific, enter percentages for each test type</li>
+                    <li>Click "Generate HLM Bills" to create bills</li>
+                    <li>Bills will be generated for all HLM centers with the specified sharing</li>
+                </ol>
+                
+                <div class="alert alert-warning mt-3">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Note:</strong> This will generate bills for all HLM centers with the specified sharing percentage.
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-header bg-success text-white">
+                <h6 class="mb-0">
+                    <i class="fas fa-calculator me-2"></i>
+                    HLM Sharing Calculation
+                </h6>
+            </div>
+            <div class="card-body">
+                <p><strong>HLM Formula:</strong></p>
+                <p class="mb-2">Sharing Amount = MRP × Sharing Percentage</p>
+                <p class="mb-2">Rate = MRP - Sharing Amount</p>
+                <p class="mb-0"><strong>Example:</strong> If MRP is ₹1000 and sharing is 55%, then Sharing = ₹550, Rate = ₹450</p>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-header bg-warning text-white">
+                <h6 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Center Type Differences
+                </h6>
+            </div>
+            <div class="card-body">
+                <p><strong>B2B Centers:</strong></p>
+                <p class="mb-2">Sharing = MRP - Rate</p>
+                <p><strong>HLM Centers:</strong></p>
+                <p class="mb-0">Rate = MRP - Sharing (where Sharing = MRP × Percentage)</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const overallSharing = document.getElementById('overall_sharing');
+    const testTypeSharing = document.getElementById('test_type_sharing');
+    const testTypeDiv = document.getElementById('testTypeSharing');
+    
+    function toggleTestTypeSharing() {
+        if (testTypeSharing.checked) {
+            testTypeDiv.style.display = 'block';
+        } else {
+            testTypeDiv.style.display = 'none';
+        }
+    }
+    
+    overallSharing.addEventListener('change', toggleTestTypeSharing);
+    testTypeSharing.addEventListener('change', toggleTestTypeSharing);
+    
+    // Initialize
+    toggleTestTypeSharing();
+});
+</script>
+{% endblock %} 

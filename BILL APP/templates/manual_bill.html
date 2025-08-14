@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Manual Bill Generation - Medical Billing System{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">
+        <i class="fas fa-hand-pointer me-2"></i>
+        Manual Bill Generation
+    </h2>
+    <div>
+        <a href="{{ url_for('bills') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Bills
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-building me-2"></i>
+                    Select Center for Bill Generation
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{{ url_for('generate_manual_bill') }}">
+                    <div class="mb-3">
+                        <label for="centerSelect" class="form-label">Choose a Center:</label>
+                        <select class="form-select" id="centerSelect" name="center_name" required>
+                            <option value="">Select a center...</option>
+                            {% for bill in bills %}
+                            <option value="{{ bill.centre_name }}" 
+                                    data-tests="{{ bill.test_items|length }}"
+                                    data-mrp="{{ bill.total_mrp }}"
+                                    data-rate="{{ bill.total_rate }}"
+                                    data-sharing="{{ bill.total_sharing }}">
+                                {{ bill.centre_name }} ({{ bill.test_items|length }} tests)
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div id="centerDetails" class="alert alert-info" style="display: none;">
+                        <h6>Center Details:</h6>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <strong>Tests:</strong> <span id="testCount">-</span>
+                            </div>
+                            <div class="col-md-3">
+                                <strong>MRP:</strong> ₹<span id="mrpTotal">-</span>
+                            </div>
+                            <div class="col-md-3">
+                                <strong>Rate:</strong> ₹<span id="rateTotal">-</span>
+                            </div>
+                            <div class="col-md-3">
+                                <strong>Sharing:</strong> ₹<span id="sharingTotal">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-file-invoice me-2"></i>
+                            Generate Bill
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Instructions
+                </h5>
+            </div>
+            <div class="card-body">
+                <ol>
+                    <li>Select a center from the dropdown list</li>
+                    <li>Review the center details that appear</li>
+                    <li>Click "Generate Bill" to create the bill</li>
+                    <li>The bill will be available for download</li>
+                </ol>
+                
+                <div class="alert alert-warning mt-3">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Note:</strong> This will generate a bill for the selected center only.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('centerSelect').addEventListener('change', function() {
+    const selectedOption = this.options[this.selectedIndex];
+    const detailsDiv = document.getElementById('centerDetails');
+    
+    if (this.value) {
+        document.getElementById('testCount').textContent = selectedOption.dataset.tests;
+        document.getElementById('mrpTotal').textContent = parseFloat(selectedOption.dataset.mrp).toFixed(2);
+        document.getElementById('rateTotal').textContent = parseFloat(selectedOption.dataset.rate).toFixed(2);
+        document.getElementById('sharingTotal').textContent = parseFloat(selectedOption.dataset.sharing).toFixed(2);
+        detailsDiv.style.display = 'block';
+    } else {
+        detailsDiv.style.display = 'none';
+    }
+});
+</script>
+{% endblock %} 

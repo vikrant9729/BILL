@@ -1,0 +1,549 @@
+2025-08-05 21:09:52,968 - INFO - Loading main data from BILL.xlsx
+2025-08-05 21:10:00,878 - INFO - Processing billing for center: AMANDEEP HOSPITAL
+2025-08-05 21:10:00,883 - INFO - Processing billing for center: AMARAVATI HOSPITAL
+2025-08-05 21:10:01,068 - INFO - Processing billing for center: APEX DIAGNOSTICS
+2025-08-05 21:10:01,075 - INFO - Processing billing for center: Aarogya Hospital Hisar
+2025-08-05 21:10:01,133 - INFO - Processing billing for center: Barwala Jansevarth Lab, Barwala
+2025-08-05 21:10:01,136 - INFO - Processing billing for center: CITY CENTER HISAR
+2025-08-05 21:10:01,166 - INFO - Processing billing for center: DR ANKIT GOYAL
+2025-08-05 21:10:01,249 - INFO - Processing billing for center: DR. RAJESH MEHTA
+2025-08-05 21:10:01,257 - INFO - Processing billing for center: ECHS
+2025-08-05 21:10:01,296 - INFO - Processing billing for center: Elora Dass Gupta
+2025-08-05 21:10:01,301 - INFO - Processing billing for center: Fatehabad Manglam Diagnostices
+2025-08-05 21:10:01,314 - INFO - Processing billing for center: GOBIND NARSING HOME
+2025-08-05 21:10:01,348 - INFO - Processing billing for center: GUPTA NEWTON HOSPITAL
+2025-08-05 21:10:01,368 - INFO - Processing billing for center: Geetanjali Hospital
+2025-08-05 21:10:02,127 - INFO - Processing billing for center: Guru Jambheshwar Multispeciality Hosp...
+2025-08-05 21:10:02,132 - INFO - Processing billing for center: HISAR DIAGNOSTICS JHAJHPUL
+2025-08-05 21:10:02,170 - INFO - Processing billing for center: HISAR GESTRO HOSPITAL
+2025-08-05 21:10:02,306 - INFO - Processing billing for center: HOLY HELP HOSPITAL
+2025-08-05 21:10:02,324 - INFO - Processing billing for center: Hansi Lab MANGLAM
+2025-08-05 21:10:02,359 - INFO - Processing billing for center: Hisar Hospital Nursery Inside Hsr Hosp.
+2025-08-05 21:10:02,397 - INFO - Processing billing for center: INSURANCE, HISAR
+2025-08-05 21:10:02,413 - INFO - Processing billing for center: JANKI HOSPITAL
+2025-08-05 21:10:02,427 - INFO - Processing billing for center: JIND MANGLAM LAB HISAR
+2025-08-05 21:10:02,439 - INFO - Processing billing for center: LIFE LINE HOSPITAL
+2025-08-05 21:10:02,544 - INFO - Processing billing for center: MEYANSH HOSPITAL
+2025-08-05 21:10:02,547 - INFO - Processing billing for center: Manglam Diagnostics Agroha
+2025-08-05 21:10:02,578 - INFO - Processing billing for center: Narwana Manglam Lab
+2025-08-05 21:10:02,596 - INFO - Processing billing for center: Navjeevan Hospital
+2025-08-05 21:10:02,681 - INFO - Processing billing for center: Onquest Laboratories Ltd.
+2025-08-05 21:10:02,685 - INFO - Processing billing for center: Pathkind Diagnostics
+2025-08-05 21:10:02,861 - INFO - Processing billing for center: RMCT TOHANA
+2025-08-05 21:10:02,944 - INFO - Processing billing for center: Ram Niwas's Centre
+2025-08-05 21:10:02,951 - INFO - Processing billing for center: Ravindra Hospital
+2025-08-05 21:10:02,959 - INFO - Processing billing for center: SACHIN MITTAL
+2025-08-05 21:10:02,965 - INFO - Processing billing for center: SADBHAVNA HOSPITAL
+2025-08-05 21:10:02,971 - INFO - Processing billing for center: SARVODYA HOSPITAL
+2025-08-05 21:10:02,974 - INFO - Processing billing for center: SHANI MANAV SEVA TRUST
+2025-08-05 21:10:02,979 - INFO - Processing billing for center: SHANTI GI HOSPITAL
+2025-08-05 21:10:02,982 - INFO - Processing billing for center: SHARDHA HOSPITAL
+2025-08-05 21:10:03,417 - INFO - Processing billing for center: Sai Hospital
+2025-08-05 21:10:03,426 - INFO - Processing billing for center: Sanyam Lab, Inside Satija Healthcare, H.
+2025-08-05 21:10:03,430 - INFO - Processing billing for center: Sapra Hospital, Hisar
+2025-08-05 21:10:03,475 - INFO - Processing billing for center: Shree Krishna Pranami Multi speciality H.
+2025-08-05 21:10:03,495 - INFO - Processing billing for center: Shri Bala JI Lab Isherwal, Miran
+2025-08-05 21:10:03,509 - INFO - Processing billing for center: Vikash Laboratory, Java Hospital, Tosha.
+2025-08-05 21:10:03,513 - INFO - Successfully processed 45 center bills
+2025-08-05 21:10:03,517 - INFO - Generating bills for AMANDEEP HOSPITAL
+2025-08-05 21:10:03,826 - INFO - Excel bill generated: bills\excel\AMANDEEP_HOSPITAL.xlsx
+2025-08-05 21:10:03,836 - INFO - PDF bill generated: bills\pdf\AMANDEEP_HOSPITAL.pdf
+2025-08-05 21:10:03,836 - INFO - Generating bills for AMARAVATI HOSPITAL
+2025-08-05 21:10:05,425 - INFO - Excel bill generated: bills\excel\AMARAVATI_HOSPITAL.xlsx
+2025-08-05 21:10:05,433 - INFO - PDF bill generated: bills\pdf\AMARAVATI_HOSPITAL.pdf
+2025-08-05 21:10:05,433 - INFO - Generating bills for APEX DIAGNOSTICS
+2025-08-05 21:10:05,490 - INFO - Excel bill generated: bills\excel\APEX_DIAGNOSTICS.xlsx
+2025-08-05 21:10:05,497 - INFO - PDF bill generated: bills\pdf\APEX_DIAGNOSTICS.pdf
+2025-08-05 21:10:05,497 - INFO - Generating bills for Aarogya Hospital Hisar
+2025-08-05 21:10:05,814 - INFO - Excel bill generated: bills\excel\Aarogya_Hospital_Hisar.xlsx
+2025-08-05 21:10:05,822 - INFO - PDF bill generated: bills\pdf\Aarogya_Hospital_Hisar.pdf
+2025-08-05 21:10:05,822 - INFO - Generating bills for Barwala Jansevarth Lab, Barwala
+2025-08-05 21:10:05,867 - INFO - Excel bill generated: bills\excel\Barwala_Jansevarth_Lab,_Barwala.xlsx
+2025-08-05 21:10:05,876 - INFO - PDF bill generated: bills\pdf\Barwala_Jansevarth_Lab,_Barwala.pdf
+2025-08-05 21:10:05,876 - INFO - Generating bills for CITY CENTER HISAR
+2025-08-05 21:10:06,066 - INFO - Excel bill generated: bills\excel\CITY_CENTER_HISAR.xlsx
+2025-08-05 21:10:06,075 - INFO - PDF bill generated: bills\pdf\CITY_CENTER_HISAR.pdf
+2025-08-05 21:10:06,075 - INFO - Generating bills for DR ANKIT GOYAL
+2025-08-05 21:10:06,751 - INFO - Excel bill generated: bills\excel\DR_ANKIT_GOYAL.xlsx
+2025-08-05 21:10:06,775 - INFO - PDF bill generated: bills\pdf\DR_ANKIT_GOYAL.pdf
+2025-08-05 21:10:06,777 - INFO - Generating bills for DR. RAJESH MEHTA
+2025-08-05 21:10:06,845 - INFO - Excel bill generated: bills\excel\DR._RAJESH_MEHTA.xlsx
+2025-08-05 21:10:06,852 - INFO - PDF bill generated: bills\pdf\DR._RAJESH_MEHTA.pdf
+2025-08-05 21:10:06,852 - INFO - Generating bills for ECHS
+2025-08-05 21:10:07,141 - INFO - Excel bill generated: bills\excel\ECHS.xlsx
+2025-08-05 21:10:07,149 - INFO - PDF bill generated: bills\pdf\ECHS.pdf
+2025-08-05 21:10:07,149 - INFO - Generating bills for Elora Dass Gupta
+2025-08-05 21:10:07,203 - INFO - Excel bill generated: bills\excel\Elora_Dass_Gupta.xlsx
+2025-08-05 21:10:07,210 - INFO - PDF bill generated: bills\pdf\Elora_Dass_Gupta.pdf
+2025-08-05 21:10:07,211 - INFO - Generating bills for Fatehabad Manglam Diagnostices
+2025-08-05 21:10:07,308 - INFO - Excel bill generated: bills\excel\Fatehabad_Manglam_Diagnostices.xlsx
+2025-08-05 21:10:07,315 - INFO - PDF bill generated: bills\pdf\Fatehabad_Manglam_Diagnostices.pdf
+2025-08-05 21:10:07,316 - INFO - Generating bills for GOBIND NARSING HOME
+2025-08-05 21:10:07,545 - INFO - Excel bill generated: bills\excel\GOBIND_NARSING_HOME.xlsx
+2025-08-05 21:10:07,555 - INFO - PDF bill generated: bills\pdf\GOBIND_NARSING_HOME.pdf
+2025-08-05 21:10:07,556 - INFO - Generating bills for GUPTA NEWTON HOSPITAL
+2025-08-05 21:10:07,683 - INFO - Excel bill generated: bills\excel\GUPTA_NEWTON_HOSPITAL.xlsx
+2025-08-05 21:10:07,691 - INFO - PDF bill generated: bills\pdf\GUPTA_NEWTON_HOSPITAL.pdf
+2025-08-05 21:10:07,692 - INFO - Generating bills for Geetanjali Hospital
+2025-08-05 21:10:12,630 - INFO - Excel bill generated: bills\excel\Geetanjali_Hospital.xlsx
+2025-08-05 21:10:12,640 - INFO - PDF bill generated: bills\pdf\Geetanjali_Hospital.pdf
+2025-08-05 21:10:12,640 - INFO - Generating bills for Guru Jambheshwar Multispeciality Hosp...
+2025-08-05 21:10:12,699 - INFO - Excel bill generated: bills\excel\Guru_Jambheshwar_Multispeciality_Hosp....xlsx
+2025-08-05 21:10:12,708 - INFO - PDF bill generated: bills\pdf\Guru_Jambheshwar_Multispeciality_Hosp....pdf
+2025-08-05 21:10:12,708 - INFO - Generating bills for HISAR DIAGNOSTICS JHAJHPUL
+2025-08-05 21:10:12,979 - INFO - Excel bill generated: bills\excel\HISAR_DIAGNOSTICS_JHAJHPUL.xlsx
+2025-08-05 21:10:13,034 - INFO - PDF bill generated: bills\pdf\HISAR_DIAGNOSTICS_JHAJHPUL.pdf
+2025-08-05 21:10:13,040 - INFO - Generating bills for HISAR GESTRO HOSPITAL
+2025-08-05 21:10:13,947 - INFO - Excel bill generated: bills\excel\HISAR_GESTRO_HOSPITAL.xlsx
+2025-08-05 21:10:13,963 - INFO - PDF bill generated: bills\pdf\HISAR_GESTRO_HOSPITAL.pdf
+2025-08-05 21:10:13,963 - INFO - Generating bills for HOLY HELP HOSPITAL
+2025-08-05 21:10:14,108 - INFO - Excel bill generated: bills\excel\HOLY_HELP_HOSPITAL.xlsx
+2025-08-05 21:10:14,118 - INFO - PDF bill generated: bills\pdf\HOLY_HELP_HOSPITAL.pdf
+2025-08-05 21:10:14,123 - INFO - Generating bills for Hansi Lab MANGLAM
+2025-08-05 21:10:14,345 - INFO - Excel bill generated: bills\excel\Hansi_Lab_MANGLAM.xlsx
+2025-08-05 21:10:14,352 - INFO - PDF bill generated: bills\pdf\Hansi_Lab_MANGLAM.pdf
+2025-08-05 21:10:14,355 - INFO - Generating bills for Hisar Hospital Nursery Inside Hsr Hosp.
+2025-08-05 21:10:14,576 - INFO - Excel bill generated: bills\excel\Hisar_Hospital_Nursery_Inside_Hsr_Hosp..xlsx
+2025-08-05 21:10:14,582 - INFO - PDF bill generated: bills\pdf\Hisar_Hospital_Nursery_Inside_Hsr_Hosp..pdf
+2025-08-05 21:10:14,583 - INFO - Generating bills for INSURANCE, HISAR
+2025-08-05 21:10:14,674 - INFO - Excel bill generated: bills\excel\INSURANCE,_HISAR.xlsx
+2025-08-05 21:10:14,679 - INFO - PDF bill generated: bills\pdf\INSURANCE,_HISAR.pdf
+2025-08-05 21:10:14,679 - INFO - Generating bills for JANKI HOSPITAL
+2025-08-05 21:10:14,767 - INFO - Excel bill generated: bills\excel\JANKI_HOSPITAL.xlsx
+2025-08-05 21:10:14,773 - INFO - PDF bill generated: bills\pdf\JANKI_HOSPITAL.pdf
+2025-08-05 21:10:14,773 - INFO - Generating bills for JIND MANGLAM LAB HISAR
+2025-08-05 21:10:14,841 - INFO - Excel bill generated: bills\excel\JIND_MANGLAM_LAB_HISAR.xlsx
+2025-08-05 21:10:14,847 - INFO - PDF bill generated: bills\pdf\JIND_MANGLAM_LAB_HISAR.pdf
+2025-08-05 21:10:14,847 - INFO - Generating bills for LIFE LINE HOSPITAL
+2025-08-05 21:10:15,481 - INFO - Excel bill generated: bills\excel\LIFE_LINE_HOSPITAL.xlsx
+2025-08-05 21:10:15,490 - INFO - PDF bill generated: bills\pdf\LIFE_LINE_HOSPITAL.pdf
+2025-08-05 21:10:15,491 - INFO - Generating bills for MEYANSH HOSPITAL
+2025-08-05 21:10:15,532 - INFO - Excel bill generated: bills\excel\MEYANSH_HOSPITAL.xlsx
+2025-08-05 21:10:15,539 - INFO - PDF bill generated: bills\pdf\MEYANSH_HOSPITAL.pdf
+2025-08-05 21:10:15,539 - INFO - Generating bills for Manglam Diagnostics Agroha
+2025-08-05 21:10:15,712 - INFO - Excel bill generated: bills\excel\Manglam_Diagnostics_Agroha.xlsx
+2025-08-05 21:10:15,718 - INFO - PDF bill generated: bills\pdf\Manglam_Diagnostics_Agroha.pdf
+2025-08-05 21:10:15,718 - INFO - Generating bills for Narwana Manglam Lab
+2025-08-05 21:10:15,827 - INFO - Excel bill generated: bills\excel\Narwana_Manglam_Lab.xlsx
+2025-08-05 21:10:15,832 - INFO - PDF bill generated: bills\pdf\Narwana_Manglam_Lab.pdf
+2025-08-05 21:10:15,832 - INFO - Generating bills for Navjeevan Hospital
+2025-08-05 21:10:16,529 - INFO - Excel bill generated: bills\excel\Navjeevan_Hospital.xlsx
+2025-08-05 21:10:16,539 - INFO - PDF bill generated: bills\pdf\Navjeevan_Hospital.pdf
+2025-08-05 21:10:16,540 - INFO - Generating bills for Onquest Laboratories Ltd.
+2025-08-05 21:10:16,626 - INFO - Excel bill generated: bills\excel\Onquest_Laboratories_Ltd..xlsx
+2025-08-05 21:10:16,632 - INFO - PDF bill generated: bills\pdf\Onquest_Laboratories_Ltd..pdf
+2025-08-05 21:10:16,632 - INFO - Generating bills for Pathkind Diagnostics
+2025-08-05 21:10:17,615 - INFO - Excel bill generated: bills\excel\Pathkind_Diagnostics.xlsx
+2025-08-05 21:10:17,625 - INFO - PDF bill generated: bills\pdf\Pathkind_Diagnostics.pdf
+2025-08-05 21:10:17,626 - INFO - Generating bills for RMCT TOHANA
+2025-08-05 21:10:18,264 - INFO - Excel bill generated: bills\excel\RMCT_TOHANA.xlsx
+2025-08-05 21:10:18,299 - INFO - PDF bill generated: bills\pdf\RMCT_TOHANA.pdf
+2025-08-05 21:10:18,300 - INFO - Generating bills for Ram Niwas's Centre
+2025-08-05 21:10:18,412 - INFO - Excel bill generated: bills\excel\Ram_Niwas's_Centre.xlsx
+2025-08-05 21:10:18,418 - INFO - PDF bill generated: bills\pdf\Ram_Niwas's_Centre.pdf
+2025-08-05 21:10:18,425 - INFO - Generating bills for Ravindra Hospital
+2025-08-05 21:10:18,493 - INFO - Excel bill generated: bills\excel\Ravindra_Hospital.xlsx
+2025-08-05 21:10:18,499 - INFO - PDF bill generated: bills\pdf\Ravindra_Hospital.pdf
+2025-08-05 21:10:18,500 - INFO - Generating bills for SACHIN MITTAL
+2025-08-05 21:10:18,574 - INFO - Excel bill generated: bills\excel\SACHIN_MITTAL.xlsx
+2025-08-05 21:10:18,580 - INFO - PDF bill generated: bills\pdf\SACHIN_MITTAL.pdf
+2025-08-05 21:10:18,581 - INFO - Generating bills for SADBHAVNA HOSPITAL
+2025-08-05 21:10:18,631 - INFO - Excel bill generated: bills\excel\SADBHAVNA_HOSPITAL.xlsx
+2025-08-05 21:10:18,640 - INFO - PDF bill generated: bills\pdf\SADBHAVNA_HOSPITAL.pdf
+2025-08-05 21:10:18,641 - INFO - Generating bills for SARVODYA HOSPITAL
+2025-08-05 21:10:18,683 - INFO - Excel bill generated: bills\excel\SARVODYA_HOSPITAL.xlsx
+2025-08-05 21:10:18,691 - INFO - PDF bill generated: bills\pdf\SARVODYA_HOSPITAL.pdf
+2025-08-05 21:10:18,691 - INFO - Generating bills for SHANI MANAV SEVA TRUST
+2025-08-05 21:10:18,743 - INFO - Excel bill generated: bills\excel\SHANI_MANAV_SEVA_TRUST.xlsx
+2025-08-05 21:10:18,749 - INFO - PDF bill generated: bills\pdf\SHANI_MANAV_SEVA_TRUST.pdf
+2025-08-05 21:10:18,749 - INFO - Generating bills for SHANTI GI HOSPITAL
+2025-08-05 21:10:18,795 - INFO - Excel bill generated: bills\excel\SHANTI_GI_HOSPITAL.xlsx
+2025-08-05 21:10:18,801 - INFO - PDF bill generated: bills\pdf\SHANTI_GI_HOSPITAL.pdf
+2025-08-05 21:10:18,802 - INFO - Generating bills for SHARDHA HOSPITAL
+2025-08-05 21:10:21,548 - INFO - Excel bill generated: bills\excel\SHARDHA_HOSPITAL.xlsx
+2025-08-05 21:10:21,557 - INFO - PDF bill generated: bills\pdf\SHARDHA_HOSPITAL.pdf
+2025-08-05 21:10:21,557 - INFO - Generating bills for Sai Hospital
+2025-08-05 21:10:21,625 - INFO - Excel bill generated: bills\excel\Sai_Hospital.xlsx
+2025-08-05 21:10:21,631 - INFO - PDF bill generated: bills\pdf\Sai_Hospital.pdf
+2025-08-05 21:10:21,632 - INFO - Generating bills for Sanyam Lab, Inside Satija Healthcare, H.
+2025-08-05 21:10:21,686 - INFO - Excel bill generated: bills\excel\Sanyam_Lab,_Inside_Satija_Healthcare,_H..xlsx
+2025-08-05 21:10:21,694 - INFO - PDF bill generated: bills\pdf\Sanyam_Lab,_Inside_Satija_Healthcare,_H..pdf
+2025-08-05 21:10:21,694 - INFO - Generating bills for Sapra Hospital, Hisar
+2025-08-05 21:10:22,169 - INFO - Excel bill generated: bills\excel\Sapra_Hospital,_Hisar.xlsx
+2025-08-05 21:10:22,194 - INFO - PDF bill generated: bills\pdf\Sapra_Hospital,_Hisar.pdf
+2025-08-05 21:10:22,199 - INFO - Generating bills for Shree Krishna Pranami Multi speciality H.
+2025-08-05 21:10:22,523 - INFO - Excel bill generated: bills\excel\Shree_Krishna_Pranami_Multi_speciality_H..xlsx
+2025-08-05 21:10:22,535 - INFO - PDF bill generated: bills\pdf\Shree_Krishna_Pranami_Multi_speciality_H..pdf
+2025-08-05 21:10:22,535 - INFO - Generating bills for Shri Bala JI Lab Isherwal, Miran
+2025-08-05 21:10:22,678 - INFO - Excel bill generated: bills\excel\Shri_Bala_JI_Lab_Isherwal,_Miran.xlsx
+2025-08-05 21:10:22,692 - INFO - PDF bill generated: bills\pdf\Shri_Bala_JI_Lab_Isherwal,_Miran.pdf
+2025-08-05 21:10:22,693 - INFO - Generating bills for Vikash Laboratory, Java Hospital, Tosha.
+2025-08-05 21:10:22,754 - INFO - Excel bill generated: bills\excel\Vikash_Laboratory,_Java_Hospital,_Tosha..xlsx
+2025-08-05 21:10:22,765 - INFO - PDF bill generated: bills\pdf\Vikash_Laboratory,_Java_Hospital,_Tosha..pdf
+2025-08-05 21:10:22,765 - INFO - Successfully generated 45 Excel bills and 45 PDF bills
+2025-08-06 12:13:03,549 - INFO - Loading main data from BILL.xlsx
+2025-08-06 12:13:10,416 - INFO - Processing billing for center: AMANDEEP HOSPITAL
+2025-08-06 12:13:10,419 - INFO - Processing billing for center: AMARAVATI HOSPITAL
+2025-08-06 12:13:10,582 - INFO - Processing billing for center: APEX DIAGNOSTICS
+2025-08-06 12:13:10,586 - INFO - Processing billing for center: Aarogya Hospital Hisar
+2025-08-06 12:13:10,637 - INFO - Processing billing for center: Barwala Jansevarth Lab, Barwala
+2025-08-06 12:13:10,641 - INFO - Processing billing for center: CITY CENTER HISAR
+2025-08-06 12:13:10,666 - INFO - Processing billing for center: DR ANKIT GOYAL
+2025-08-06 12:13:10,739 - INFO - Processing billing for center: DR. RAJESH MEHTA
+2025-08-06 12:13:10,744 - INFO - Processing billing for center: ECHS
+2025-08-06 12:13:10,778 - INFO - Processing billing for center: Elora Dass Gupta
+2025-08-06 12:13:10,782 - INFO - Processing billing for center: Fatehabad Manglam Diagnostices
+2025-08-06 12:13:10,792 - INFO - Processing billing for center: GOBIND NARSING HOME
+2025-08-06 12:13:10,819 - INFO - Processing billing for center: GUPTA NEWTON HOSPITAL
+2025-08-06 12:13:10,834 - INFO - Processing billing for center: Geetanjali Hospital
+2025-08-06 12:13:11,516 - INFO - Processing billing for center: Guru Jambheshwar Multispeciality Hosp...
+2025-08-06 12:13:11,521 - INFO - Processing billing for center: HISAR DIAGNOSTICS JHAJHPUL
+2025-08-06 12:13:11,554 - INFO - Processing billing for center: HISAR GESTRO HOSPITAL
+2025-08-06 12:13:11,681 - INFO - Processing billing for center: HOLY HELP HOSPITAL
+2025-08-06 12:13:11,700 - INFO - Processing billing for center: Hansi Lab MANGLAM
+2025-08-06 12:13:11,732 - INFO - Processing billing for center: Hisar Hospital Nursery Inside Hsr Hosp.
+2025-08-06 12:13:11,771 - INFO - Processing billing for center: INSURANCE, HISAR
+2025-08-06 12:13:11,784 - INFO - Processing billing for center: JANKI HOSPITAL
+2025-08-06 12:13:11,797 - INFO - Processing billing for center: JIND MANGLAM LAB HISAR
+2025-08-06 12:13:11,806 - INFO - Processing billing for center: LIFE LINE HOSPITAL
+2025-08-06 12:13:11,897 - INFO - Processing billing for center: MEYANSH HOSPITAL
+2025-08-06 12:13:11,901 - INFO - Processing billing for center: Manglam Diagnostics Agroha
+2025-08-06 12:13:11,927 - INFO - Processing billing for center: Narwana Manglam Lab
+2025-08-06 12:13:11,942 - INFO - Processing billing for center: Navjeevan Hospital
+2025-08-06 12:13:12,017 - INFO - Processing billing for center: Onquest Laboratories Ltd.
+2025-08-06 12:13:12,021 - INFO - Processing billing for center: Pathkind Diagnostics
+2025-08-06 12:13:12,193 - INFO - Processing billing for center: RMCT TOHANA
+2025-08-06 12:13:12,267 - INFO - Processing billing for center: Ram Niwas's Centre
+2025-08-06 12:13:12,275 - INFO - Processing billing for center: Ravindra Hospital
+2025-08-06 12:13:12,280 - INFO - Processing billing for center: SACHIN MITTAL
+2025-08-06 12:13:12,285 - INFO - Processing billing for center: SADBHAVNA HOSPITAL
+2025-08-06 12:13:12,289 - INFO - Processing billing for center: SARVODYA HOSPITAL
+2025-08-06 12:13:12,291 - INFO - Processing billing for center: SHANI MANAV SEVA TRUST
+2025-08-06 12:13:12,295 - INFO - Processing billing for center: SHANTI GI HOSPITAL
+2025-08-06 12:13:12,297 - INFO - Processing billing for center: SHARDHA HOSPITAL
+2025-08-06 12:13:12,693 - INFO - Processing billing for center: Sai Hospital
+2025-08-06 12:13:12,700 - INFO - Processing billing for center: Sanyam Lab, Inside Satija Healthcare, H.
+2025-08-06 12:13:12,704 - INFO - Processing billing for center: Sapra Hospital, Hisar
+2025-08-06 12:13:12,746 - INFO - Processing billing for center: Shree Krishna Pranami Multi speciality H.
+2025-08-06 12:13:12,766 - INFO - Processing billing for center: Shri Bala JI Lab Isherwal, Miran
+2025-08-06 12:13:12,778 - INFO - Processing billing for center: Vikash Laboratory, Java Hospital, Tosha.
+2025-08-06 12:13:12,782 - INFO - Successfully processed 45 center bills
+2025-08-06 12:13:12,786 - INFO - Generating bills for AMANDEEP HOSPITAL
+2025-08-06 12:13:12,825 - INFO - Excel bill generated: bills\excel\AMANDEEP_HOSPITAL.xlsx
+2025-08-06 12:13:12,837 - INFO - PDF bill generated: bills\pdf\AMANDEEP_HOSPITAL.pdf
+2025-08-06 12:13:12,837 - INFO - Generating bills for AMARAVATI HOSPITAL
+2025-08-06 12:13:13,721 - INFO - Excel bill generated: bills\excel\AMARAVATI_HOSPITAL.xlsx
+2025-08-06 12:13:13,728 - INFO - PDF bill generated: bills\pdf\AMARAVATI_HOSPITAL.pdf
+2025-08-06 12:13:13,729 - INFO - Generating bills for APEX DIAGNOSTICS
+2025-08-06 12:13:13,779 - INFO - Excel bill generated: bills\excel\APEX_DIAGNOSTICS.xlsx
+2025-08-06 12:13:13,787 - INFO - PDF bill generated: bills\pdf\APEX_DIAGNOSTICS.pdf
+2025-08-06 12:13:13,787 - INFO - Generating bills for Aarogya Hospital Hisar
+2025-08-06 12:13:14,202 - INFO - Excel bill generated: bills\excel\Aarogya_Hospital_Hisar.xlsx
+2025-08-06 12:13:14,211 - INFO - PDF bill generated: bills\pdf\Aarogya_Hospital_Hisar.pdf
+2025-08-06 12:13:14,214 - INFO - Generating bills for Barwala Jansevarth Lab, Barwala
+2025-08-06 12:13:14,246 - INFO - Excel bill generated: bills\excel\Barwala_Jansevarth_Lab,_Barwala.xlsx
+2025-08-06 12:13:14,255 - INFO - PDF bill generated: bills\pdf\Barwala_Jansevarth_Lab,_Barwala.pdf
+2025-08-06 12:13:14,255 - INFO - Generating bills for CITY CENTER HISAR
+2025-08-06 12:13:14,452 - INFO - Excel bill generated: bills\excel\CITY_CENTER_HISAR.xlsx
+2025-08-06 12:13:14,461 - INFO - PDF bill generated: bills\pdf\CITY_CENTER_HISAR.pdf
+2025-08-06 12:13:14,463 - INFO - Generating bills for DR ANKIT GOYAL
+2025-08-06 12:13:14,912 - INFO - Excel bill generated: bills\excel\DR_ANKIT_GOYAL.xlsx
+2025-08-06 12:13:14,920 - INFO - PDF bill generated: bills\pdf\DR_ANKIT_GOYAL.pdf
+2025-08-06 12:13:14,921 - INFO - Generating bills for DR. RAJESH MEHTA
+2025-08-06 12:13:14,966 - INFO - Excel bill generated: bills\excel\DR._RAJESH_MEHTA.xlsx
+2025-08-06 12:13:14,973 - INFO - PDF bill generated: bills\pdf\DR._RAJESH_MEHTA.pdf
+2025-08-06 12:13:14,973 - INFO - Generating bills for ECHS
+2025-08-06 12:13:15,183 - INFO - Excel bill generated: bills\excel\ECHS.xlsx
+2025-08-06 12:13:15,191 - INFO - PDF bill generated: bills\pdf\ECHS.pdf
+2025-08-06 12:13:15,192 - INFO - Generating bills for Elora Dass Gupta
+2025-08-06 12:13:15,229 - INFO - Excel bill generated: bills\excel\Elora_Dass_Gupta.xlsx
+2025-08-06 12:13:15,235 - INFO - PDF bill generated: bills\pdf\Elora_Dass_Gupta.pdf
+2025-08-06 12:13:15,235 - INFO - Generating bills for Fatehabad Manglam Diagnostices
+2025-08-06 12:13:15,313 - INFO - Excel bill generated: bills\excel\Fatehabad_Manglam_Diagnostices.xlsx
+2025-08-06 12:13:15,319 - INFO - PDF bill generated: bills\pdf\Fatehabad_Manglam_Diagnostices.pdf
+2025-08-06 12:13:15,319 - INFO - Generating bills for GOBIND NARSING HOME
+2025-08-06 12:13:15,496 - INFO - Excel bill generated: bills\excel\GOBIND_NARSING_HOME.xlsx
+2025-08-06 12:13:15,503 - INFO - PDF bill generated: bills\pdf\GOBIND_NARSING_HOME.pdf
+2025-08-06 12:13:15,504 - INFO - Generating bills for GUPTA NEWTON HOSPITAL
+2025-08-06 12:13:15,610 - INFO - Excel bill generated: bills\excel\GUPTA_NEWTON_HOSPITAL.xlsx
+2025-08-06 12:13:15,616 - INFO - PDF bill generated: bills\pdf\GUPTA_NEWTON_HOSPITAL.pdf
+2025-08-06 12:13:15,618 - INFO - Generating bills for Geetanjali Hospital
+2025-08-06 12:13:19,821 - INFO - Excel bill generated: bills\excel\Geetanjali_Hospital.xlsx
+2025-08-06 12:13:19,829 - INFO - PDF bill generated: bills\pdf\Geetanjali_Hospital.pdf
+2025-08-06 12:13:19,829 - INFO - Generating bills for Guru Jambheshwar Multispeciality Hosp...
+2025-08-06 12:13:20,136 - INFO - Excel bill generated: bills\excel\Guru_Jambheshwar_Multispeciality_Hosp....xlsx
+2025-08-06 12:13:20,142 - INFO - PDF bill generated: bills\pdf\Guru_Jambheshwar_Multispeciality_Hosp....pdf
+2025-08-06 12:13:20,147 - INFO - Generating bills for HISAR DIAGNOSTICS JHAJHPUL
+2025-08-06 12:13:20,362 - INFO - Excel bill generated: bills\excel\HISAR_DIAGNOSTICS_JHAJHPUL.xlsx
+2025-08-06 12:13:20,369 - INFO - PDF bill generated: bills\pdf\HISAR_DIAGNOSTICS_JHAJHPUL.pdf
+2025-08-06 12:13:20,369 - INFO - Generating bills for HISAR GESTRO HOSPITAL
+2025-08-06 12:13:21,045 - INFO - Excel bill generated: bills\excel\HISAR_GESTRO_HOSPITAL.xlsx
+2025-08-06 12:13:21,056 - INFO - PDF bill generated: bills\pdf\HISAR_GESTRO_HOSPITAL.pdf
+2025-08-06 12:13:21,057 - INFO - Generating bills for HOLY HELP HOSPITAL
+2025-08-06 12:13:21,166 - INFO - Excel bill generated: bills\excel\HOLY_HELP_HOSPITAL.xlsx
+2025-08-06 12:13:21,174 - INFO - PDF bill generated: bills\pdf\HOLY_HELP_HOSPITAL.pdf
+2025-08-06 12:13:21,176 - INFO - Generating bills for Hansi Lab MANGLAM
+2025-08-06 12:13:21,374 - INFO - Excel bill generated: bills\excel\Hansi_Lab_MANGLAM.xlsx
+2025-08-06 12:13:21,381 - INFO - PDF bill generated: bills\pdf\Hansi_Lab_MANGLAM.pdf
+2025-08-06 12:13:21,382 - INFO - Generating bills for Hisar Hospital Nursery Inside Hsr Hosp.
+2025-08-06 12:13:21,604 - INFO - Excel bill generated: bills\excel\Hisar_Hospital_Nursery_Inside_Hsr_Hosp..xlsx
+2025-08-06 12:13:21,611 - INFO - PDF bill generated: bills\pdf\Hisar_Hospital_Nursery_Inside_Hsr_Hosp..pdf
+2025-08-06 12:13:21,611 - INFO - Generating bills for INSURANCE, HISAR
+2025-08-06 12:13:21,696 - INFO - Excel bill generated: bills\excel\INSURANCE,_HISAR.xlsx
+2025-08-06 12:13:21,701 - INFO - PDF bill generated: bills\pdf\INSURANCE,_HISAR.pdf
+2025-08-06 12:13:21,702 - INFO - Generating bills for JANKI HOSPITAL
+2025-08-06 12:13:21,787 - INFO - Excel bill generated: bills\excel\JANKI_HOSPITAL.xlsx
+2025-08-06 12:13:21,793 - INFO - PDF bill generated: bills\pdf\JANKI_HOSPITAL.pdf
+2025-08-06 12:13:21,793 - INFO - Generating bills for JIND MANGLAM LAB HISAR
+2025-08-06 12:13:21,861 - INFO - Excel bill generated: bills\excel\JIND_MANGLAM_LAB_HISAR.xlsx
+2025-08-06 12:13:21,867 - INFO - PDF bill generated: bills\pdf\JIND_MANGLAM_LAB_HISAR.pdf
+2025-08-06 12:13:21,867 - INFO - Generating bills for LIFE LINE HOSPITAL
+2025-08-06 12:13:22,389 - INFO - Excel bill generated: bills\excel\LIFE_LINE_HOSPITAL.xlsx
+2025-08-06 12:13:22,398 - INFO - PDF bill generated: bills\pdf\LIFE_LINE_HOSPITAL.pdf
+2025-08-06 12:13:22,398 - INFO - Generating bills for MEYANSH HOSPITAL
+2025-08-06 12:13:22,427 - INFO - Excel bill generated: bills\excel\MEYANSH_HOSPITAL.xlsx
+2025-08-06 12:13:22,433 - INFO - PDF bill generated: bills\pdf\MEYANSH_HOSPITAL.pdf
+2025-08-06 12:13:22,434 - INFO - Generating bills for Manglam Diagnostics Agroha
+2025-08-06 12:13:22,600 - INFO - Excel bill generated: bills\excel\Manglam_Diagnostics_Agroha.xlsx
+2025-08-06 12:13:22,610 - INFO - PDF bill generated: bills\pdf\Manglam_Diagnostics_Agroha.pdf
+2025-08-06 12:13:22,611 - INFO - Generating bills for Narwana Manglam Lab
+2025-08-06 12:13:22,715 - INFO - Excel bill generated: bills\excel\Narwana_Manglam_Lab.xlsx
+2025-08-06 12:13:22,721 - INFO - PDF bill generated: bills\pdf\Narwana_Manglam_Lab.pdf
+2025-08-06 12:13:22,721 - INFO - Generating bills for Navjeevan Hospital
+2025-08-06 12:13:23,135 - INFO - Excel bill generated: bills\excel\Navjeevan_Hospital.xlsx
+2025-08-06 12:13:23,143 - INFO - PDF bill generated: bills\pdf\Navjeevan_Hospital.pdf
+2025-08-06 12:13:23,144 - INFO - Generating bills for Onquest Laboratories Ltd.
+2025-08-06 12:13:23,180 - INFO - Excel bill generated: bills\excel\Onquest_Laboratories_Ltd..xlsx
+2025-08-06 12:13:23,186 - INFO - PDF bill generated: bills\pdf\Onquest_Laboratories_Ltd..pdf
+2025-08-06 12:13:23,187 - INFO - Generating bills for Pathkind Diagnostics
+2025-08-06 12:13:24,178 - INFO - Excel bill generated: bills\excel\Pathkind_Diagnostics.xlsx
+2025-08-06 12:13:24,187 - INFO - PDF bill generated: bills\pdf\Pathkind_Diagnostics.pdf
+2025-08-06 12:13:24,194 - INFO - Generating bills for RMCT TOHANA
+2025-08-06 12:13:24,915 - INFO - Excel bill generated: bills\excel\RMCT_TOHANA.xlsx
+2025-08-06 12:13:24,923 - INFO - PDF bill generated: bills\pdf\RMCT_TOHANA.pdf
+2025-08-06 12:13:24,924 - INFO - Generating bills for Ram Niwas's Centre
+2025-08-06 12:13:24,990 - INFO - Excel bill generated: bills\excel\Ram_Niwas's_Centre.xlsx
+2025-08-06 12:13:24,996 - INFO - PDF bill generated: bills\pdf\Ram_Niwas's_Centre.pdf
+2025-08-06 12:13:24,996 - INFO - Generating bills for Ravindra Hospital
+2025-08-06 12:13:25,052 - INFO - Excel bill generated: bills\excel\Ravindra_Hospital.xlsx
+2025-08-06 12:13:25,057 - INFO - PDF bill generated: bills\pdf\Ravindra_Hospital.pdf
+2025-08-06 12:13:25,058 - INFO - Generating bills for SACHIN MITTAL
+2025-08-06 12:13:25,119 - INFO - Excel bill generated: bills\excel\SACHIN_MITTAL.xlsx
+2025-08-06 12:13:25,126 - INFO - PDF bill generated: bills\pdf\SACHIN_MITTAL.pdf
+2025-08-06 12:13:25,127 - INFO - Generating bills for SADBHAVNA HOSPITAL
+2025-08-06 12:13:25,161 - INFO - Excel bill generated: bills\excel\SADBHAVNA_HOSPITAL.xlsx
+2025-08-06 12:13:25,167 - INFO - PDF bill generated: bills\pdf\SADBHAVNA_HOSPITAL.pdf
+2025-08-06 12:13:25,169 - INFO - Generating bills for SARVODYA HOSPITAL
+2025-08-06 12:13:25,197 - INFO - Excel bill generated: bills\excel\SARVODYA_HOSPITAL.xlsx
+2025-08-06 12:13:25,203 - INFO - PDF bill generated: bills\pdf\SARVODYA_HOSPITAL.pdf
+2025-08-06 12:13:25,203 - INFO - Generating bills for SHANI MANAV SEVA TRUST
+2025-08-06 12:13:25,251 - INFO - Excel bill generated: bills\excel\SHANI_MANAV_SEVA_TRUST.xlsx
+2025-08-06 12:13:25,257 - INFO - PDF bill generated: bills\pdf\SHANI_MANAV_SEVA_TRUST.pdf
+2025-08-06 12:13:25,257 - INFO - Generating bills for SHANTI GI HOSPITAL
+2025-08-06 12:13:25,324 - INFO - Excel bill generated: bills\excel\SHANTI_GI_HOSPITAL.xlsx
+2025-08-06 12:13:25,335 - INFO - PDF bill generated: bills\pdf\SHANTI_GI_HOSPITAL.pdf
+2025-08-06 12:13:25,338 - INFO - Generating bills for SHARDHA HOSPITAL
+2025-08-06 12:13:27,618 - INFO - Excel bill generated: bills\excel\SHARDHA_HOSPITAL.xlsx
+2025-08-06 12:13:27,625 - INFO - PDF bill generated: bills\pdf\SHARDHA_HOSPITAL.pdf
+2025-08-06 12:13:27,626 - INFO - Generating bills for Sai Hospital
+2025-08-06 12:13:27,683 - INFO - Excel bill generated: bills\excel\Sai_Hospital.xlsx
+2025-08-06 12:13:27,690 - INFO - PDF bill generated: bills\pdf\Sai_Hospital.pdf
+2025-08-06 12:13:27,690 - INFO - Generating bills for Sanyam Lab, Inside Satija Healthcare, H.
+2025-08-06 12:13:27,744 - INFO - Excel bill generated: bills\excel\Sanyam_Lab,_Inside_Satija_Healthcare,_H..xlsx
+2025-08-06 12:13:27,751 - INFO - PDF bill generated: bills\pdf\Sanyam_Lab,_Inside_Satija_Healthcare,_H..pdf
+2025-08-06 12:13:27,752 - INFO - Generating bills for Sapra Hospital, Hisar
+2025-08-06 12:13:27,999 - INFO - Excel bill generated: bills\excel\Sapra_Hospital,_Hisar.xlsx
+2025-08-06 12:13:28,007 - INFO - PDF bill generated: bills\pdf\Sapra_Hospital,_Hisar.pdf
+2025-08-06 12:13:28,010 - INFO - Generating bills for Shree Krishna Pranami Multi speciality H.
+2025-08-06 12:13:28,140 - INFO - Excel bill generated: bills\excel\Shree_Krishna_Pranami_Multi_speciality_H..xlsx
+2025-08-06 12:13:28,150 - INFO - PDF bill generated: bills\pdf\Shree_Krishna_Pranami_Multi_speciality_H..pdf
+2025-08-06 12:13:28,150 - INFO - Generating bills for Shri Bala JI Lab Isherwal, Miran
+2025-08-06 12:13:28,238 - INFO - Excel bill generated: bills\excel\Shri_Bala_JI_Lab_Isherwal,_Miran.xlsx
+2025-08-06 12:13:28,245 - INFO - PDF bill generated: bills\pdf\Shri_Bala_JI_Lab_Isherwal,_Miran.pdf
+2025-08-06 12:13:28,246 - INFO - Generating bills for Vikash Laboratory, Java Hospital, Tosha.
+2025-08-06 12:13:28,281 - INFO - Excel bill generated: bills\excel\Vikash_Laboratory,_Java_Hospital,_Tosha..xlsx
+2025-08-06 12:13:28,286 - INFO - PDF bill generated: bills\pdf\Vikash_Laboratory,_Java_Hospital,_Tosha..pdf
+2025-08-06 12:13:28,286 - INFO - Successfully generated 45 Excel bills and 45 PDF bills
+2025-08-11 17:24:47,128 - INFO - Loading main data from BILL.xlsx
+2025-08-11 17:24:53,764 - INFO - Processing billing for center: AMANDEEP HOSPITAL
+2025-08-11 17:24:53,769 - INFO - Processing billing for center: AMARAVATI HOSPITAL
+2025-08-11 17:24:53,933 - INFO - Processing billing for center: APEX DIAGNOSTICS
+2025-08-11 17:24:53,938 - INFO - Processing billing for center: Aarogya Hospital Hisar
+2025-08-11 17:24:53,990 - INFO - Processing billing for center: Barwala Jansevarth Lab, Barwala
+2025-08-11 17:24:53,993 - INFO - Processing billing for center: CITY CENTER HISAR
+2025-08-11 17:24:54,017 - INFO - Processing billing for center: DR ANKIT GOYAL
+2025-08-11 17:24:54,090 - INFO - Processing billing for center: DR. RAJESH MEHTA
+2025-08-11 17:24:54,094 - INFO - Processing billing for center: ECHS
+2025-08-11 17:24:54,129 - INFO - Processing billing for center: Elora Dass Gupta
+2025-08-11 17:24:54,132 - INFO - Processing billing for center: Fatehabad Manglam Diagnostices
+2025-08-11 17:24:54,143 - INFO - Processing billing for center: GOBIND NARSING HOME
+2025-08-11 17:24:54,171 - INFO - Processing billing for center: GUPTA NEWTON HOSPITAL
+2025-08-11 17:24:54,186 - INFO - Processing billing for center: Geetanjali Hospital
+2025-08-11 17:24:54,871 - INFO - Processing billing for center: Guru Jambheshwar Multispeciality Hosp...
+2025-08-11 17:24:54,876 - INFO - Processing billing for center: HISAR DIAGNOSTICS JHAJHPUL
+2025-08-11 17:24:54,909 - INFO - Processing billing for center: HISAR GESTRO HOSPITAL
+2025-08-11 17:24:55,032 - INFO - Processing billing for center: HOLY HELP HOSPITAL
+2025-08-11 17:24:55,048 - INFO - Processing billing for center: Hansi Lab MANGLAM
+2025-08-11 17:24:55,079 - INFO - Processing billing for center: Hisar Hospital Nursery Inside Hsr Hosp.
+2025-08-11 17:24:55,116 - INFO - Processing billing for center: INSURANCE, HISAR
+2025-08-11 17:24:55,129 - INFO - Processing billing for center: JANKI HOSPITAL
+2025-08-11 17:24:55,141 - INFO - Processing billing for center: JIND MANGLAM LAB HISAR
+2025-08-11 17:24:55,149 - INFO - Processing billing for center: LIFE LINE HOSPITAL
+2025-08-11 17:24:55,243 - INFO - Processing billing for center: MEYANSH HOSPITAL
+2025-08-11 17:24:55,246 - INFO - Processing billing for center: Manglam Diagnostics Agroha
+2025-08-11 17:24:55,272 - INFO - Processing billing for center: Narwana Manglam Lab
+2025-08-11 17:24:55,288 - INFO - Processing billing for center: Navjeevan Hospital
+2025-08-11 17:24:55,361 - INFO - Processing billing for center: Onquest Laboratories Ltd.
+2025-08-11 17:24:55,363 - INFO - Processing billing for center: Pathkind Diagnostics
+2025-08-11 17:24:55,525 - INFO - Processing billing for center: RMCT TOHANA
+2025-08-11 17:24:55,601 - INFO - Processing billing for center: Ram Niwas's Centre
+2025-08-11 17:24:55,609 - INFO - Processing billing for center: Ravindra Hospital
+2025-08-11 17:24:55,614 - INFO - Processing billing for center: SACHIN MITTAL
+2025-08-11 17:24:55,621 - INFO - Processing billing for center: SADBHAVNA HOSPITAL
+2025-08-11 17:24:55,624 - INFO - Processing billing for center: SARVODYA HOSPITAL
+2025-08-11 17:24:55,626 - INFO - Processing billing for center: SHANI MANAV SEVA TRUST
+2025-08-11 17:24:55,630 - INFO - Processing billing for center: SHANTI GI HOSPITAL
+2025-08-11 17:24:55,632 - INFO - Processing billing for center: SHARDHA HOSPITAL
+2025-08-11 17:24:56,022 - INFO - Processing billing for center: Sai Hospital
+2025-08-11 17:24:56,027 - INFO - Processing billing for center: Sanyam Lab, Inside Satija Healthcare, H.
+2025-08-11 17:24:56,031 - INFO - Processing billing for center: Sapra Hospital, Hisar
+2025-08-11 17:24:56,071 - INFO - Processing billing for center: Shree Krishna Pranami Multi speciality H.
+2025-08-11 17:24:56,089 - INFO - Processing billing for center: Shri Bala JI Lab Isherwal, Miran
+2025-08-11 17:24:56,101 - INFO - Processing billing for center: Vikash Laboratory, Java Hospital, Tosha.
+2025-08-11 17:24:56,106 - INFO - Successfully processed 45 center bills
+2025-08-11 17:24:56,108 - INFO - Generating bills for AMANDEEP HOSPITAL
+2025-08-11 17:24:56,157 - INFO - Excel bill generated: bills\excel\AMANDEEP_HOSPITAL.xlsx
+2025-08-11 17:24:56,166 - INFO - PDF bill generated: bills\pdf\AMANDEEP_HOSPITAL.pdf
+2025-08-11 17:24:56,167 - INFO - Generating bills for AMARAVATI HOSPITAL
+2025-08-11 17:24:57,100 - INFO - Excel bill generated: bills\excel\AMARAVATI_HOSPITAL.xlsx
+2025-08-11 17:24:57,108 - INFO - PDF bill generated: bills\pdf\AMARAVATI_HOSPITAL.pdf
+2025-08-11 17:24:57,108 - INFO - Generating bills for APEX DIAGNOSTICS
+2025-08-11 17:24:57,158 - INFO - Excel bill generated: bills\excel\APEX_DIAGNOSTICS.xlsx
+2025-08-11 17:24:57,169 - INFO - PDF bill generated: bills\pdf\APEX_DIAGNOSTICS.pdf
+2025-08-11 17:24:57,169 - INFO - Generating bills for Aarogya Hospital Hisar
+2025-08-11 17:24:57,463 - INFO - Excel bill generated: bills\excel\Aarogya_Hospital_Hisar.xlsx
+2025-08-11 17:24:57,471 - INFO - PDF bill generated: bills\pdf\Aarogya_Hospital_Hisar.pdf
+2025-08-11 17:24:57,472 - INFO - Generating bills for Barwala Jansevarth Lab, Barwala
+2025-08-11 17:24:57,511 - INFO - Excel bill generated: bills\excel\Barwala_Jansevarth_Lab,_Barwala.xlsx
+2025-08-11 17:24:57,517 - INFO - PDF bill generated: bills\pdf\Barwala_Jansevarth_Lab,_Barwala.pdf
+2025-08-11 17:24:57,517 - INFO - Generating bills for CITY CENTER HISAR
+2025-08-11 17:24:57,693 - INFO - Excel bill generated: bills\excel\CITY_CENTER_HISAR.xlsx
+2025-08-11 17:24:57,700 - INFO - PDF bill generated: bills\pdf\CITY_CENTER_HISAR.pdf
+2025-08-11 17:24:57,700 - INFO - Generating bills for DR ANKIT GOYAL
+2025-08-11 17:24:58,136 - INFO - Excel bill generated: bills\excel\DR_ANKIT_GOYAL.xlsx
+2025-08-11 17:24:58,144 - INFO - PDF bill generated: bills\pdf\DR_ANKIT_GOYAL.pdf
+2025-08-11 17:24:58,145 - INFO - Generating bills for DR. RAJESH MEHTA
+2025-08-11 17:24:58,194 - INFO - Excel bill generated: bills\excel\DR._RAJESH_MEHTA.xlsx
+2025-08-11 17:24:58,200 - INFO - PDF bill generated: bills\pdf\DR._RAJESH_MEHTA.pdf
+2025-08-11 17:24:58,201 - INFO - Generating bills for ECHS
+2025-08-11 17:24:58,422 - INFO - Excel bill generated: bills\excel\ECHS.xlsx
+2025-08-11 17:24:58,430 - INFO - PDF bill generated: bills\pdf\ECHS.pdf
+2025-08-11 17:24:58,431 - INFO - Generating bills for Elora Dass Gupta
+2025-08-11 17:24:58,474 - INFO - Excel bill generated: bills\excel\Elora_Dass_Gupta.xlsx
+2025-08-11 17:24:58,481 - INFO - PDF bill generated: bills\pdf\Elora_Dass_Gupta.pdf
+2025-08-11 17:24:58,481 - INFO - Generating bills for Fatehabad Manglam Diagnostices
+2025-08-11 17:24:58,560 - INFO - Excel bill generated: bills\excel\Fatehabad_Manglam_Diagnostices.xlsx
+2025-08-11 17:24:58,566 - INFO - PDF bill generated: bills\pdf\Fatehabad_Manglam_Diagnostices.pdf
+2025-08-11 17:24:58,566 - INFO - Generating bills for GOBIND NARSING HOME
+2025-08-11 17:24:58,751 - INFO - Excel bill generated: bills\excel\GOBIND_NARSING_HOME.xlsx
+2025-08-11 17:24:58,759 - INFO - PDF bill generated: bills\pdf\GOBIND_NARSING_HOME.pdf
+2025-08-11 17:24:58,760 - INFO - Generating bills for GUPTA NEWTON HOSPITAL
+2025-08-11 17:24:58,873 - INFO - Excel bill generated: bills\excel\GUPTA_NEWTON_HOSPITAL.xlsx
+2025-08-11 17:24:58,879 - INFO - PDF bill generated: bills\pdf\GUPTA_NEWTON_HOSPITAL.pdf
+2025-08-11 17:24:58,879 - INFO - Generating bills for Geetanjali Hospital
+2025-08-11 17:25:02,811 - INFO - Excel bill generated: bills\excel\Geetanjali_Hospital.xlsx
+2025-08-11 17:25:02,818 - INFO - PDF bill generated: bills\pdf\Geetanjali_Hospital.pdf
+2025-08-11 17:25:02,818 - INFO - Generating bills for Guru Jambheshwar Multispeciality Hosp...
+2025-08-11 17:25:02,874 - INFO - Excel bill generated: bills\excel\Guru_Jambheshwar_Multispeciality_Hosp....xlsx
+2025-08-11 17:25:02,880 - INFO - PDF bill generated: bills\pdf\Guru_Jambheshwar_Multispeciality_Hosp....pdf
+2025-08-11 17:25:02,880 - INFO - Generating bills for HISAR DIAGNOSTICS JHAJHPUL
+2025-08-11 17:25:03,324 - INFO - Excel bill generated: bills\excel\HISAR_DIAGNOSTICS_JHAJHPUL.xlsx
+2025-08-11 17:25:03,330 - INFO - PDF bill generated: bills\pdf\HISAR_DIAGNOSTICS_JHAJHPUL.pdf
+2025-08-11 17:25:03,330 - INFO - Generating bills for HISAR GESTRO HOSPITAL
+2025-08-11 17:25:04,035 - INFO - Excel bill generated: bills\excel\HISAR_GESTRO_HOSPITAL.xlsx
+2025-08-11 17:25:04,044 - INFO - PDF bill generated: bills\pdf\HISAR_GESTRO_HOSPITAL.pdf
+2025-08-11 17:25:04,044 - INFO - Generating bills for HOLY HELP HOSPITAL
+2025-08-11 17:25:04,149 - INFO - Excel bill generated: bills\excel\HOLY_HELP_HOSPITAL.xlsx
+2025-08-11 17:25:04,157 - INFO - PDF bill generated: bills\pdf\HOLY_HELP_HOSPITAL.pdf
+2025-08-11 17:25:04,157 - INFO - Generating bills for Hansi Lab MANGLAM
+2025-08-11 17:25:04,347 - INFO - Excel bill generated: bills\excel\Hansi_Lab_MANGLAM.xlsx
+2025-08-11 17:25:04,355 - INFO - PDF bill generated: bills\pdf\Hansi_Lab_MANGLAM.pdf
+2025-08-11 17:25:04,355 - INFO - Generating bills for Hisar Hospital Nursery Inside Hsr Hosp.
+2025-08-11 17:25:04,573 - INFO - Excel bill generated: bills\excel\Hisar_Hospital_Nursery_Inside_Hsr_Hosp..xlsx
+2025-08-11 17:25:04,579 - INFO - PDF bill generated: bills\pdf\Hisar_Hospital_Nursery_Inside_Hsr_Hosp..pdf
+2025-08-11 17:25:04,579 - INFO - Generating bills for INSURANCE, HISAR
+2025-08-11 17:25:04,671 - INFO - Excel bill generated: bills\excel\INSURANCE,_HISAR.xlsx
+2025-08-11 17:25:04,677 - INFO - PDF bill generated: bills\pdf\INSURANCE,_HISAR.pdf
+2025-08-11 17:25:04,677 - INFO - Generating bills for JANKI HOSPITAL
+2025-08-11 17:25:04,763 - INFO - Excel bill generated: bills\excel\JANKI_HOSPITAL.xlsx
+2025-08-11 17:25:04,768 - INFO - PDF bill generated: bills\pdf\JANKI_HOSPITAL.pdf
+2025-08-11 17:25:04,769 - INFO - Generating bills for JIND MANGLAM LAB HISAR
+2025-08-11 17:25:04,835 - INFO - Excel bill generated: bills\excel\JIND_MANGLAM_LAB_HISAR.xlsx
+2025-08-11 17:25:04,843 - INFO - PDF bill generated: bills\pdf\JIND_MANGLAM_LAB_HISAR.pdf
+2025-08-11 17:25:04,843 - INFO - Generating bills for LIFE LINE HOSPITAL
+2025-08-11 17:25:05,466 - INFO - Excel bill generated: bills\excel\LIFE_LINE_HOSPITAL.xlsx
+2025-08-11 17:25:05,473 - INFO - PDF bill generated: bills\pdf\LIFE_LINE_HOSPITAL.pdf
+2025-08-11 17:25:05,474 - INFO - Generating bills for MEYANSH HOSPITAL
+2025-08-11 17:25:05,547 - INFO - Excel bill generated: bills\excel\MEYANSH_HOSPITAL.xlsx
+2025-08-11 17:25:05,553 - INFO - PDF bill generated: bills\pdf\MEYANSH_HOSPITAL.pdf
+2025-08-11 17:25:05,553 - INFO - Generating bills for Manglam Diagnostics Agroha
+2025-08-11 17:25:05,719 - INFO - Excel bill generated: bills\excel\Manglam_Diagnostics_Agroha.xlsx
+2025-08-11 17:25:05,727 - INFO - PDF bill generated: bills\pdf\Manglam_Diagnostics_Agroha.pdf
+2025-08-11 17:25:05,727 - INFO - Generating bills for Narwana Manglam Lab
+2025-08-11 17:25:05,835 - INFO - Excel bill generated: bills\excel\Narwana_Manglam_Lab.xlsx
+2025-08-11 17:25:05,843 - INFO - PDF bill generated: bills\pdf\Narwana_Manglam_Lab.pdf
+2025-08-11 17:25:05,843 - INFO - Generating bills for Navjeevan Hospital
+2025-08-11 17:25:06,378 - INFO - Excel bill generated: bills\excel\Navjeevan_Hospital.xlsx
+2025-08-11 17:25:06,390 - INFO - PDF bill generated: bills\pdf\Navjeevan_Hospital.pdf
+2025-08-11 17:25:06,391 - INFO - Generating bills for Onquest Laboratories Ltd.
+2025-08-11 17:25:06,464 - INFO - Excel bill generated: bills\excel\Onquest_Laboratories_Ltd..xlsx
+2025-08-11 17:25:06,470 - INFO - PDF bill generated: bills\pdf\Onquest_Laboratories_Ltd..pdf
+2025-08-11 17:25:06,470 - INFO - Generating bills for Pathkind Diagnostics
+2025-08-11 17:25:07,405 - INFO - Excel bill generated: bills\excel\Pathkind_Diagnostics.xlsx
+2025-08-11 17:25:07,411 - INFO - PDF bill generated: bills\pdf\Pathkind_Diagnostics.pdf
+2025-08-11 17:25:07,411 - INFO - Generating bills for RMCT TOHANA
+2025-08-11 17:25:07,856 - INFO - Excel bill generated: bills\excel\RMCT_TOHANA.xlsx
+2025-08-11 17:25:07,862 - INFO - PDF bill generated: bills\pdf\RMCT_TOHANA.pdf
+2025-08-11 17:25:07,863 - INFO - Generating bills for Ram Niwas's Centre
+2025-08-11 17:25:07,926 - INFO - Excel bill generated: bills\excel\Ram_Niwas's_Centre.xlsx
+2025-08-11 17:25:07,931 - INFO - PDF bill generated: bills\pdf\Ram_Niwas's_Centre.pdf
+2025-08-11 17:25:07,932 - INFO - Generating bills for Ravindra Hospital
+2025-08-11 17:25:07,982 - INFO - Excel bill generated: bills\excel\Ravindra_Hospital.xlsx
+2025-08-11 17:25:07,988 - INFO - PDF bill generated: bills\pdf\Ravindra_Hospital.pdf
+2025-08-11 17:25:07,989 - INFO - Generating bills for SACHIN MITTAL
+2025-08-11 17:25:08,043 - INFO - Excel bill generated: bills\excel\SACHIN_MITTAL.xlsx
+2025-08-11 17:25:08,049 - INFO - PDF bill generated: bills\pdf\SACHIN_MITTAL.pdf
+2025-08-11 17:25:08,049 - INFO - Generating bills for SADBHAVNA HOSPITAL
+2025-08-11 17:25:08,090 - INFO - Excel bill generated: bills\excel\SADBHAVNA_HOSPITAL.xlsx
+2025-08-11 17:25:08,096 - INFO - PDF bill generated: bills\pdf\SADBHAVNA_HOSPITAL.pdf
+2025-08-11 17:25:08,096 - INFO - Generating bills for SARVODYA HOSPITAL
+2025-08-11 17:25:08,128 - INFO - Excel bill generated: bills\excel\SARVODYA_HOSPITAL.xlsx
+2025-08-11 17:25:08,134 - INFO - PDF bill generated: bills\pdf\SARVODYA_HOSPITAL.pdf
+2025-08-11 17:25:08,134 - INFO - Generating bills for SHANI MANAV SEVA TRUST
+2025-08-11 17:25:08,177 - INFO - Excel bill generated: bills\excel\SHANI_MANAV_SEVA_TRUST.xlsx
+2025-08-11 17:25:08,182 - INFO - PDF bill generated: bills\pdf\SHANI_MANAV_SEVA_TRUST.pdf
+2025-08-11 17:25:08,183 - INFO - Generating bills for SHANTI GI HOSPITAL
+2025-08-11 17:25:08,218 - INFO - Excel bill generated: bills\excel\SHANTI_GI_HOSPITAL.xlsx
+2025-08-11 17:25:08,225 - INFO - PDF bill generated: bills\pdf\SHANTI_GI_HOSPITAL.pdf
+2025-08-11 17:25:08,225 - INFO - Generating bills for SHARDHA HOSPITAL
+2025-08-11 17:25:10,545 - INFO - Excel bill generated: bills\excel\SHARDHA_HOSPITAL.xlsx
+2025-08-11 17:25:10,552 - INFO - PDF bill generated: bills\pdf\SHARDHA_HOSPITAL.pdf
+2025-08-11 17:25:10,553 - INFO - Generating bills for Sai Hospital
+2025-08-11 17:25:10,614 - INFO - Excel bill generated: bills\excel\Sai_Hospital.xlsx
+2025-08-11 17:25:10,621 - INFO - PDF bill generated: bills\pdf\Sai_Hospital.pdf
+2025-08-11 17:25:10,621 - INFO - Generating bills for Sanyam Lab, Inside Satija Healthcare, H.
+2025-08-11 17:25:10,669 - INFO - Excel bill generated: bills\excel\Sanyam_Lab,_Inside_Satija_Healthcare,_H..xlsx
+2025-08-11 17:25:10,675 - INFO - PDF bill generated: bills\pdf\Sanyam_Lab,_Inside_Satija_Healthcare,_H..pdf
+2025-08-11 17:25:10,675 - INFO - Generating bills for Sapra Hospital, Hisar
+2025-08-11 17:25:11,231 - INFO - Excel bill generated: bills\excel\Sapra_Hospital,_Hisar.xlsx
+2025-08-11 17:25:11,237 - INFO - PDF bill generated: bills\pdf\Sapra_Hospital,_Hisar.pdf
+2025-08-11 17:25:11,237 - INFO - Generating bills for Shree Krishna Pranami Multi speciality H.
+2025-08-11 17:25:11,371 - INFO - Excel bill generated: bills\excel\Shree_Krishna_Pranami_Multi_speciality_H..xlsx
+2025-08-11 17:25:11,377 - INFO - PDF bill generated: bills\pdf\Shree_Krishna_Pranami_Multi_speciality_H..pdf
+2025-08-11 17:25:11,377 - INFO - Generating bills for Shri Bala JI Lab Isherwal, Miran
+2025-08-11 17:25:11,468 - INFO - Excel bill generated: bills\excel\Shri_Bala_JI_Lab_Isherwal,_Miran.xlsx
+2025-08-11 17:25:11,474 - INFO - PDF bill generated: bills\pdf\Shri_Bala_JI_Lab_Isherwal,_Miran.pdf
+2025-08-11 17:25:11,474 - INFO - Generating bills for Vikash Laboratory, Java Hospital, Tosha.
+2025-08-11 17:25:11,520 - INFO - Excel bill generated: bills\excel\Vikash_Laboratory,_Java_Hospital,_Tosha..xlsx
+2025-08-11 17:25:11,525 - INFO - PDF bill generated: bills\pdf\Vikash_Laboratory,_Java_Hospital,_Tosha..pdf
+2025-08-11 17:25:11,525 - INFO - Successfully generated 45 Excel bills and 45 PDF bills

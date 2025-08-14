@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}AI Assistance - Medical Billing System{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">
+        <i class="fas fa-robot me-2"></i>
+        AI Assistance
+    </h2>
+    <div>
+        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Home
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-comments me-2"></i>
+                    Ask AI Assistant
+                </h5>
+            </div>
+            <div class="card-body">
+                <form id="aiForm">
+                    <div class="mb-3">
+                        <label for="userQuery" class="form-label">Your Question:</label>
+                        <textarea class="form-control" id="userQuery" name="user_query" rows="4" 
+                                  placeholder="Ask me anything about the medical billing system, error handling, or usage instructions..."></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg" id="askButton">
+                            <i class="fas fa-paper-plane me-2"></i>
+                            Ask AI
+                        </button>
+                    </div>
+                </form>
+                
+                <div id="aiResponse" class="mt-4" style="display: none;">
+                    <div class="card">
+                        <div class="card-header bg-success text-white">
+                            <h6 class="mb-0">
+                                <i class="fas fa-robot me-2"></i>
+                                AI Response
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div id="responseContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    Suggested Questions
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <h6>Common Issues:</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="suggested-question" data-question="How do I fix 'Missing required columns' error?">How do I fix 'Missing required columns' error?</a></li>
+                        <li><a href="#" class="suggested-question" data-question="What Excel format is required for billing?">What Excel format is required for billing?</a></li>
+                        <li><a href="#" class="suggested-question" data-question="How does HLM vs B2B billing work?">How does HLM vs B2B billing work?</a></li>
+                        <li><a href="#" class="suggested-question" data-question="How to calculate sharing percentages?">How to calculate sharing percentages?</a></li>
+                    </ul>
+                </div>
+                
+                <div class="mb-3">
+                    <h6>Usage Help:</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="suggested-question" data-question="How to generate bills for specific centers?">How to generate bills for specific centers?</a></li>
+                        <li><a href="#" class="suggested-question" data-question="What are the different bill generation options?">What are the different bill generation options?</a></li>
+                        <li><a href="#" class="suggested-question" data-question="How to download and print bills?">How to download and print bills?</a></li>
+                    </ul>
+                </div>
+                
+                <div class="alert alert-warning">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Note:</strong> AI assistance requires internet connection and API keys to be configured.
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-header bg-warning text-white">
+                <h6 class="mb-0">
+                    <i class="fas fa-cog me-2"></i>
+                    AI Configuration
+                </h6>
+            </div>
+            <div class="card-body">
+                <p class="mb-2"><strong>Required API Keys:</strong></p>
+                <ul class="list-unstyled small">
+                    <li>• GEMINI_API_KEY (Google Gemini)</li>
+                    <li>• OPENAI_API_KEY (OpenAI GPT)</li>
+                </ul>
+                <p class="mb-0 small text-muted">Add these to your .env file for AI features to work.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const aiForm = document.getElementById('aiForm');
+    const userQuery = document.getElementById('userQuery');
+    const askButton = document.getElementById('askButton');
+    const aiResponse = document.getElementById('aiResponse');
+    const responseContent = document.getElementById('responseContent');
+    
+    // Handle form submission
+    aiForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const query = userQuery.value.trim();
+        if (!query) {
+            alert('Please enter a question.');
+            return;
+        }
+        
+        // Show loading state
+        askButton.disabled = true;
+        askButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Thinking...';
+        
+        // Make AJAX request
+        fetch('/ai_assistance', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `user_query=${encodeURIComponent(query)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Show response
+            responseContent.innerHTML = data.response.replace(/\n/g, '<br>');
+            aiResponse.style.display = 'block';
+            
+            // Reset button
+            askButton.disabled = false;
+            askButton.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Ask AI';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            responseContent.innerHTML = 'Error: Unable to get AI response. Please try again.';
+            aiResponse.style.display = 'block';
+            
+            // Reset button
+            askButton.disabled = false;
+            askButton.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Ask AI';
+        });
+    });
+    
+    // Handle suggested questions
+    document.querySelectorAll('.suggested-question').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const question = this.getAttribute('data-question');
+            userQuery.value = question;
+            userQuery.focus();
+        });
+    });
+});
+</script>
+{% endblock %} 
