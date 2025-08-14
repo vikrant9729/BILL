@@ -5,7 +5,7 @@ requests==2.32.3
 python-dotenv==1.0.1
 openai==1.42.0
 Flask==3.0.3
-Werkzeug==3.0.4
+Werkzeug==3.0.6
 Jinja2==3.1.4
 MarkupSafe==2.1.5
 itsdangerous==2.2.0
