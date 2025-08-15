@@ -26,38 +26,31 @@
             </div>
             <div class="card-body">
                 <form method="post" action="{{ url_for('generate_hlm_bills') }}">
-                    <div class="mb-4">
-                        <label for="sharingPercentage" class="form-label">Sharing Percentage:</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="sharingPercentage" 
-                                   name="sharing_percentage" min="0" max="100" step="0.01" 
-                                   placeholder="Enter sharing percentage (e.g., 55)" required>
-                            <span class="input-group-text">%</span>
+                    {% if selected_center and test_types %}
+                        <div class="mb-4">
+                            <label class="form-label">Enter sharing percentage for each test type:</label>
+                            {% for test_type in test_types %}
+                                <div class="input-group mb-2">
+                                    <span class="input-group-text">{{ test_type }}</span>
+                                    <input type="number" class="form-control" name="sharing_{{ test_type|replace(' ', '_')|lower }}" min="0" max="100" step="0.01" placeholder="e.g. 55" required>
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            {% endfor %}
+                            <input type="hidden" name="selected_center" value="{{ selected_center }}">
+                            <button type="submit" name="submit_sharing" class="btn btn-primary mt-3">Generate Bill</button>
                         </div>
-                        <small class="form-text text-muted">
-                            Enter the sharing percentage to be applied to all HLM bills (e.g., 55 for 55%)
-                        </small>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label class="form-label">Sharing Type:</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sharing_type" 
-                                   id="overall_sharing" value="overall" checked>
-                            <label class="form-check-label" for="overall_sharing">
-                                <strong>Overall Sharing Percentage</strong>
-                                <small class="text-muted d-block">Apply the same percentage to all test types</small>
-                            </label>
+                    {% else %}
+                        <div class="mb-4">
+                            <label class="form-label">Select HLM Center:</label>
+                            <select class="form-select" name="selected_center" required>
+                                <option value="">-- Select Center --</option>
+                                {% for center in hlm_centers %}
+                                    <option value="{{ center }}">{{ center }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit" class="btn btn-primary mt-3">Next</button>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sharing_type" 
-                                   id="test_type_sharing" value="test_type">
-                            <label class="form-check-label" for="test_type_sharing">
-                                <strong>Test Type Specific Sharing</strong>
-                                <small class="text-muted d-block">Set different percentages for different test types</small>
-                            </label>
-                        </div>
-                    </div>
+                    {% endif %}
                     
                     <div id="testTypeSharing" class="mb-4" style="display: none;">
                         <label class="form-label">Test Type Sharing Percentages:</label>

@@ -11,6 +11,7 @@ import logging
 import requests
 from dotenv import load_dotenv
 import re
+from utils import AmountToWords, InvoiceNumberGenerator, AIIntegration, safe_float_conversion, safe_int_conversion, safe_date_conversion
 
 # Load environment variables
 load_dotenv()
@@ -29,210 +30,6 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 ALLOWED_EXTENSIONS = {'xlsx', 'xls'}
 
-class AmountToWords:
-    """Convert numerical amounts to words for invoice generation."""
-    
-    def __init__(self):
-        self.units = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"]
-        self.teens = ["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"]
-        self.tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
-        self.scales = ["", "Thousand", "Lakh", "Crore"]
-    
-    def convert(self, amount: float) -> str:
-        """Convert amount to words in Indian numbering system."""
-        if amount == 0:
-            return "Zero Rupees Only"
-        
-        # Split into rupees and paise
-        rupees = int(amount)
-        paise = int(round((amount - rupees) * 100))
-        
-        rupees_words = self._convert_rupees(rupees)
-        paise_words = self._convert_paise(paise) if paise > 0 else ""
-        
-        if paise_words:
-            return f"{rupees_words} and {paise_words} Only"
-        else:
-            return f"{rupees_words} Only"
-    
-    def _convert_rupees(self, rupees: int) -> str:
-        """Convert rupees to words."""
-        if rupees == 0:
-            return "Zero Rupees"
-        
-        words = []
-        scale_index = 0
-        
-        while rupees > 0:
-            chunk = rupees % 1000
-            if chunk != 0:
-                chunk_words = self._convert_chunk(chunk)
-                if scale_index > 0:
-                    chunk_words += f" {self.scales[scale_index]}"
-                words.insert(0, chunk_words)
-            
-            rupees //= 1000
-            scale_index += 1
-        
-        return " ".join(words) + " Rupees"
-    
-    def _convert_chunk(self, chunk: int) -> str:
-        """Convert a chunk of up to 3 digits to words."""
-        if chunk == 0:
-            return ""
-        
-        words = []
-        
-        # Handle hundreds
-        if chunk >= 100:
-            words.append(f"{self.units[chunk // 100]} Hundred")
-            chunk %= 100
-        
-        # Handle tens and units
-        if chunk >= 20:
-            words.append(self.tens[chunk // 10])
-            if chunk % 10 > 0:
-                words.append(self.units[chunk % 10])
-        elif chunk >= 10:
-            words.append(self.teens[chunk - 10])
-        elif chunk > 0:
-            words.append(self.units[chunk])
-        
-        return " ".join(words)
-    
-    def _convert_paise(self, paise: int) -> str:
-        """Convert paise to words."""
-        if paise == 0:
-            return ""
-        
-        if paise < 20:
-            return f"{self.units[paise]} Paise"
-        else:
-            tens = paise // 10
-            units = paise % 10
-            if units > 0:
-                return f"{self.tens[tens]} {self.units[units]} Paise"
-            else:
-                return f"{self.tens[tens]} Paise"
-
-class InvoiceNumberGenerator:
-    """Generate sequential invoice numbers in the format KRPL/YY-YY/MM/NNN."""
-    
-    def __init__(self, start_sequence: int = 1):
-        self.sequence = start_sequence
-        self.current_year = datetime.now().year
-        self.current_month = datetime.now().month
-    
-    def generate(self, invoice_date: datetime = None) -> str:
-        """Generate invoice number for the given date."""
-        if invoice_date is None:
-            invoice_date = datetime.now()
-        
-        year = invoice_date.year
-        month = invoice_date.month
-        
-        # Check if year or month has changed, reset sequence if needed
-        if year != self.current_year or month != self.current_month:
-            self.sequence = 1
-            self.current_year = year
-            self.current_month = month
-        
-        # Format: KRPL/YY-YY/MM/NNN
-        year_range = f"{year-1}-{year}" if month < 4 else f"{year}-{year+1}"
-        month_str = f"{month:02d}"
-        sequence_str = f"{self.sequence:03d}"
-        
-        invoice_number = f"KRPL/{year_range}/{month_str}/{sequence_str}"
-        
-        # Increment sequence for next invoice
-        self.sequence += 1
-        
-        # Validate sequence doesn't exceed 999
-        if self.sequence > 999:
-            logger.warning("Invoice sequence exceeded 999, resetting to 1")
-            self.sequence = 1
-        
-        return invoice_number
-
-class AIIntegration:
-    """AI integration for error handling and user assistance."""
-    
-    def __init__(self):
-        # Hardcode the Gemini API key directly
-        self.gemini_api_key = "AIzaSyCISRlocKiVnAlakm5GEllJu6VVnrBdP6s"
-        self.openai_api_key = None  # Disable OpenAI
-        self.gemini_url = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent"
-    
-    def get_ai_response(self, prompt: str, use_gemini: bool = True) -> str:
-        """Get AI response for error handling or user assistance."""
-        try:
-            if use_gemini and self.gemini_api_key:
-                return self._call_gemini(prompt)
-            else:
-                return "AI assistance not available. Please check your API keys."
-        except Exception as e:
-            logger.error(f"AI API call failed: {e}")
-            return f"AI assistance temporarily unavailable: {str(e)}"
-    
-    def _call_gemini(self, prompt: str) -> str:
-        """Call Gemini API via REST."""
-        headers = {
-            "Content-Type": "application/json",
-        }
-        
-        data = {
-            "contents": [{
-                "parts": [{"text": prompt}]
-            }]
-        }
-        
-        response = requests.post(
-            f"{self.gemini_url}?key={self.gemini_api_key}",
-            headers=headers,
-            json=data,
-            timeout=30
-        )
-        
-        if response.status_code == 200:
-            result = response.json()
-            return result['candidates'][0]['content']['parts'][0]['text']
-        else:
-            raise Exception(f"Gemini API error: {response.status_code}")
-    
-    def _call_openai(self, prompt: str) -> str:
-        """Call OpenAI API."""
-        try:
-            import openai
-            openai.api_key = self.openai_api_key
-            
-            response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=[{"role": "user", "content": prompt}],
-                max_tokens=500,
-                timeout=30
-            )
-            
-            return response.choices[0].message.content
-        except ImportError:
-            raise Exception("OpenAI library not installed. Run: pip install openai")
-    
-    def handle_error(self, error_message: str, context: str = "") -> str:
-        """Get AI suggestions for error handling."""
-        prompt = f"""
-        I'm working with a medical billing automation system and encountered an error:
-        
-        Error: {error_message}
-        Context: {context}
-        
-        Please provide:
-        1. A brief explanation of what might be causing this error
-        2. Step-by-step troubleshooting suggestions
-        3. Any preventive measures to avoid this error in the future
-        
-        Keep the response concise and practical.
-        """
-        
-        return self.get_ai_response(prompt)
 
 # Initialize global objects
 amount_converter = AmountToWords()
@@ -266,127 +63,18 @@ def validate_excel_data(df):
     
     return True, None
 
-def safe_float_conversion(value, default=0.0):
-    """Safely convert value to float with error handling"""
-    try:
-        if pd.isna(value) or value == '':
-            return default
-        return float(value)
-    except (ValueError, TypeError):
-        logger.warning(f"Could not convert {value} to float, using default {default}")
-        return default
 
-def safe_int_conversion(value, default=0):
-    """Safely convert value to int with error handling"""
-    try:
-        if pd.isna(value) or value == '':
-            return default
-        return int(float(value))
-    except (ValueError, TypeError):
-        logger.warning(f"Could not convert {value} to int, using default {default}")
-        return default
 
-def safe_date_conversion(value):
-    """Safely convert date value with error handling"""
+def process_excel_file(file_path):
+    """Process Excel file and return billing data grouped by Center Name, with MobileNumber filtering."""
     try:
-        if pd.isna(value) or value == '':
-            return 'N/A'
-        if hasattr(value, 'strftime'):
-            return value.strftime('%Y-%m-%d')
-        return str(value)
-    except Exception as e:
-        logger.warning(f"Could not convert date {value}: {e}")
-        return 'N/A'
-
-def process_excel_file(file_path, sharing_percentage=None, center_type=None):
-    """Process Excel file and return billing data grouped by Center Name"""
-    try:
-        # Read Excel file with error handling
-        try:
-            df = pd.read_excel(file_path)
-        except Exception as e:
-            return None, f"Error reading Excel file: {str(e)}"
-        
-        # Validate data structure
+        df = pd.read_excel(file_path)
         is_valid, error_msg = validate_excel_data(df)
         if not is_valid:
             return None, error_msg
-        
-        # Clean and process the data
         df = df.fillna('')
-        
-        # Group by CENTER NAME to create center-wise bills
-        bills = []
-        hlm_centers = get_hlm_centers()
-        
-        for centre_name, group in df.groupby('CENTER NAME'):
-            if pd.isna(centre_name) or centre_name == '':
-                continue
-            # Determine center type
-            is_hlm = centre_name in hlm_centers
-            current_center_type = 'HLM' if is_hlm else 'B2B'
-            # Process test items for this center
-            test_items = []
-            total_mrp = 0
-            total_rate = 0
-            total_sharing = 0
-            for _, row in group.iterrows():
-                try:
-                    mrp = safe_float_conversion(row['MRP'])
-                    rate = safe_float_conversion(row['CentreTestRate'])
-                    # Calculate sharing amount based on center type
-                    if is_hlm:
-                        # For HLM: Calculate sharing based on percentage, then rate = MRP - sharing
-                        if sharing_percentage:
-                            try:
-                                sharing_percentage_float = float(sharing_percentage)
-                                if sharing_percentage_float < 0 or sharing_percentage_float > 100:
-                                    sharing_percentage_float = 55.0  # Default to 55%
-                            except (ValueError, TypeError):
-                                sharing_percentage_float = 55.0  # Default to 55%
-                            sharing_amount = mrp * (sharing_percentage_float / 100)
-                            rate = mrp - sharing_amount
-                        else:
-                            # Default sharing calculation for HLM
-                            sharing_amount = mrp * 0.55  # 55% default
-                            rate = mrp - sharing_amount
-                    else:
-                        # For B2B: Sharing = MRP - Rate (existing logic)
-                        sharing_amount = mrp - rate
-                    test_item = {
-                        'registered_date': safe_date_conversion(row['RegisteredDate']),
-                        'visit_code': str(safe_int_conversion(row['PatientVisitCode'])),
-                        'patient_name': str(row['PatientName']) if pd.notna(row['PatientName']) else 'N/A',
-                        'test_name': str(row['TEST NAME']) if pd.notna(row['TEST NAME']) else 'N/A',
-                        'mrp': mrp,
-                        'rate': rate,
-                        'sharing_amount': sharing_amount
-                    }
-                    test_items.append(test_item)
-                    total_mrp += mrp
-                    total_rate += rate
-                    total_sharing += sharing_amount
-                except Exception as e:
-                    logger.error(f"Error processing row: {e}")
-                    continue
-            if test_items:  # Only create bill if there are test items
-                # Generate professional invoice number
-                invoice_number = invoice_generator.generate()
-                bill = {
-                    'centre_name': str(centre_name),
-                    'test_items': test_items,
-                    'total_mrp': total_mrp,
-                    'total_rate': total_rate,
-                    'total_sharing': total_sharing,
-                    'bill_date': datetime.now().strftime('%Y-%m-%d'),
-                    'bill_number': invoice_number,
-                    'center_type': current_center_type,
-                    'amount_in_words': amount_converter.convert(total_rate)
-                }
-                bills.append(bill)
-        if not bills:
-            return None, "No valid bills could be generated from the data"
-        return bills, None
+        # Store original df for later filtering
+        return df, None
     except Exception as e:
         logger.error(f"Error processing Excel file: {e}")
         return None, f"Error processing file: {str(e)}"
@@ -465,17 +153,13 @@ def upload_file():
         if 'file' not in request.files:
             flash('No file selected', 'error')
             return redirect(url_for('index'))
-        
         file = request.files['file']
         if file.filename == '':
             flash('No file selected', 'error')
             return redirect(url_for('index'))
-        
         if not file or not allowed_file(file.filename):
             flash('Invalid file type. Please upload an Excel file (.xlsx or .xls)', 'error')
             return redirect(url_for('index'))
-        
-        # Secure filename and save file
         try:
             filename = secure_filename(file.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -484,41 +168,17 @@ def upload_file():
             logger.error(f"Error saving file: {e}")
             flash('Error saving uploaded file', 'error')
             return redirect(url_for('index'))
-        
-        # Get sharing percentage if provided
-        sharing_percentage = request.form.get('sharing_percentage')
-        center_type = request.form.get('center_type', 'B2B')
-        
-        # Validate sharing percentage if provided
-        if sharing_percentage:
-            try:
-                sharing_float = float(sharing_percentage)
-                if sharing_float < 0 or sharing_float > 100:
-                    flash('Sharing percentage must be between 0 and 100', 'error')
-                    return redirect(url_for('index'))
-            except ValueError:
-                flash('Invalid sharing percentage format', 'error')
-                return redirect(url_for('index'))
-        
-        # Process the Excel file
-        bills, error = process_excel_file(file_path, sharing_percentage, center_type)
-        
+        df, error = process_excel_file(file_path)
         if error:
-            # Get AI assistance for error handling
             ai_suggestion = ai_integration.handle_error(error, "File upload and processing")
             flash(f'Error processing file: {error}\n\nAI Suggestion:\n{ai_suggestion}', 'error')
             return redirect(url_for('index'))
-        
-        if not bills:
+        if df is None or df.empty:
             flash('No bills could be generated from the uploaded file', 'error')
             return redirect(url_for('index'))
-        
-        # Store bills in session or temporary storage
-        app.bills = bills
-        
-        flash(f'Successfully processed {len(bills)} bills from {filename}', 'success')
-        return redirect(url_for('bills'))
-    
+        app.df = df
+        flash(f'Successfully uploaded {filename}', 'success')
+        return redirect(url_for('index'))
     except Exception as e:
         logger.error(f"Error in upload_file: {e}")
         ai_suggestion = ai_integration.handle_error(str(e), "File upload process")
@@ -609,101 +269,78 @@ def generate_multiple_bills():
 
 @app.route('/generate_hlm_bills', methods=['GET', 'POST'])
 def generate_hlm_bills():
-    """Generate bills for HLM centers with sharing percentage"""
+    """Two-step HLM bill generation: select center, then enter sharing per test type."""
     try:
-        if request.method == 'POST':
-            sharing_percentage = request.form.get('sharing_percentage')
-            sharing_type = request.form.get('sharing_type', 'overall')
-            
-            if not sharing_percentage:
-                flash('Please provide sharing percentage for HLM bills', 'error')
-                return redirect(url_for('generate_hlm_bills'))
-            
-            try:
-                sharing_percentage = float(sharing_percentage)
-                if sharing_percentage < 0 or sharing_percentage > 100:
-                    flash('Sharing percentage must be between 0 and 100', 'error')
-                    return redirect(url_for('generate_hlm_bills'))
-            except ValueError:
-                flash('Invalid sharing percentage', 'error')
-                return redirect(url_for('generate_hlm_bills'))
-            
-            # Get test-type specific sharing percentages if provided
-            test_type_sharing = {}
-            if sharing_type == 'test_type':
+        if not hasattr(app, 'df') or app.df.empty:
+            flash('No data available. Please upload an Excel file first.', 'error')
+            return redirect(url_for('index'))
+        df = app.df.copy()
+        # Step 1: Show HLM centers
+        if request.method == 'GET' or (request.method == 'POST' and 'selected_center' not in request.form):
+            hlm_df = df[df['MobileNumber'].astype(str).str.strip().str.upper() == 'HLM']
+            centers = sorted(hlm_df['CENTER NAME'].dropna().unique())
+            return render_template('hlm_bills.html', hlm_centers=centers, app=app)
+        # Step 2: Center selected, show test types and sharing input
+        selected_center = request.form.get('selected_center')
+        if not selected_center:
+            flash('Please select a center', 'error')
+            return redirect(url_for('generate_hlm_bills'))
+        center_df = df[(df['MobileNumber'].astype(str).str.strip().str.upper() == 'HLM') & (df['CENTER NAME'] == selected_center)]
+        test_types = sorted(center_df['TEST TYPE'].dropna().unique())
+        # If sharing percentages submitted, generate bill
+        if 'submit_sharing' in request.form:
+            sharing_map = {}
+            for test_type in test_types:
+                key = f"sharing_{test_type.replace(' ', '_').lower()}"
+                val = request.form.get(key)
                 try:
-                    test_type_sharing = {
-                        'blood_test_sharing': float(request.form.get('blood_test_sharing', sharing_percentage)),
-                        'urine_test_sharing': float(request.form.get('urine_test_sharing', sharing_percentage)),
-                        'xray_test_sharing': float(request.form.get('xray_test_sharing', sharing_percentage)),
-                        'other_test_sharing': float(request.form.get('other_test_sharing', sharing_percentage))
-                    }
-                    
-                    # Validate test-type sharing percentages
-                    for key, value in test_type_sharing.items():
-                        if value < 0 or value > 100:
-                            flash(f'{key.replace("_", " ").title()} sharing percentage must be between 0 and 100', 'error')
-                            return redirect(url_for('generate_hlm_bills'))
-                except ValueError:
-                    flash('Invalid test-type sharing percentage format', 'error')
-                    return redirect(url_for('generate_hlm_bills'))
-            
-            # Get HLM centers
-            hlm_centers = get_hlm_centers()
-            
-            if not hasattr(app, 'bills') or not app.bills:
-                flash('No bills available. Please upload an Excel file first.', 'error')
-                return redirect(url_for('index'))
-            
-            # Filter bills for HLM centers and apply sharing percentage
-            hlm_bills = []
-            for bill in app.bills:
-                if bill['centre_name'] in hlm_centers:
-                    try:
-                        # Apply sharing percentage to each test item
-                        for item in bill['test_items']:
-                            mrp = item['mrp']
-                            
-                            if sharing_type == 'overall':
-                                # Apply overall sharing percentage
-                                sharing_amount = mrp * (sharing_percentage / 100)
-                                item['rate'] = mrp - sharing_amount
-                                item['sharing_amount'] = sharing_amount
-                            else:
-                                # Apply test-type specific sharing
-                                test_name = item['test_name'].lower()
-                                if 'blood' in test_name:
-                                    test_sharing = test_type_sharing.get('blood_test_sharing', sharing_percentage)
-                                elif 'urine' in test_name:
-                                    test_sharing = test_type_sharing.get('urine_test_sharing', sharing_percentage)
-                                elif 'x-ray' in test_name or 'xray' in test_name:
-                                    test_sharing = test_type_sharing.get('xray_test_sharing', sharing_percentage)
-                                else:
-                                    test_sharing = test_type_sharing.get('other_test_sharing', sharing_percentage)
-                                
-                                sharing_amount = mrp * (test_sharing / 100)
-                                item['rate'] = mrp - sharing_amount
-                                item['sharing_amount'] = sharing_amount
-                        
-                        # Recalculate totals
-                        bill['total_rate'] = sum(item['rate'] for item in bill['test_items'])
-                        bill['total_sharing'] = sum(item['sharing_amount'] for item in bill['test_items'])
-                        bill['center_type'] = 'HLM'
-                        bill['amount_in_words'] = amount_converter.convert(bill['total_rate'])
-                        hlm_bills.append(bill)
-                    except Exception as e:
-                        logger.error(f"Error processing HLM bill {bill['centre_name']}: {e}")
-                        continue
-            
-            if not hlm_bills:
-                flash('No HLM bills found in the uploaded data', 'error')
-                return redirect(url_for('generate_hlm_bills'))
-            
-            app.bills = hlm_bills
-            flash(f'Generated {len(hlm_bills)} HLM bills with {sharing_percentage}% sharing', 'success')
+                    sharing_map[test_type] = float(val)
+                except (TypeError, ValueError):
+                    sharing_map[test_type] = 55.0
+            # Generate bill for selected center
+            test_items = []
+            total_mrp = 0
+            total_rate = 0
+            total_sharing = 0
+            for _, row in center_df.iterrows():
+                mrp = safe_float_conversion(row['MRP'])
+                test_type = str(row['TEST TYPE'])
+                sharing_pct = sharing_map.get(test_type, 55.0)
+                sharing_amount = mrp * (sharing_pct / 100)
+                rate = mrp - sharing_amount
+                test_item = {
+                    'registered_date': safe_date_conversion(row['RegisteredDate']),
+                    'visit_code': str(safe_int_conversion(row['PatientVisitCode'])),
+                    'patient_name': str(row['PatientName']) if pd.notna(row['PatientName']) else 'N/A',
+                    'test_name': str(row['TEST NAME']) if pd.notna(row['TEST NAME']) else 'N/A',
+                    'test_type': test_type,
+                    'mrp': mrp,
+                    'rate': rate,
+                    'sharing_amount': sharing_amount,
+                    'sharing_percentage': sharing_pct
+                }
+                test_items.append(test_item)
+                total_mrp += mrp
+                total_rate += rate
+                total_sharing += sharing_amount
+            invoice_number = invoice_generator.generate()
+            bill = {
+                'centre_name': selected_center,
+                'test_items': test_items,
+                'test_types': test_types,
+                'total_mrp': total_mrp,
+                'total_rate': total_rate,
+                'total_sharing': total_sharing,
+                'bill_date': datetime.now().strftime('%Y-%m-%d'),
+                'bill_number': invoice_number,
+                'center_type': 'HLM',
+                'amount_in_words': amount_converter.convert(total_rate)
+            }
+            app.bills = [bill]
+            flash(f'Generated HLM bill for {selected_center}', 'success')
             return redirect(url_for('bills'))
-        
-        return render_template('hlm_bills.html', app=app)
+        # Show sharing input form for test types
+        return render_template('hlm_bills.html', selected_center=selected_center, test_types=test_types, app=app)
     except Exception as e:
         logger.error(f"Error in generate_hlm_bills: {e}")
         flash('An error occurred while processing HLM bill generation', 'error')
@@ -711,22 +348,57 @@ def generate_hlm_bills():
 
 @app.route('/generate_b2b_bills')
 def generate_b2b_bills():
-    """Generate bills for B2B centers"""
+    """One-click B2B bill generation."""
     try:
-        if not hasattr(app, 'bills') or not app.bills:
-            flash('No bills available. Please upload an Excel file first.', 'error')
+        if not hasattr(app, 'df') or app.df.empty:
+            flash('No data available. Please upload an Excel file first.', 'error')
             return redirect(url_for('index'))
-        
-        b2b_centers = get_b2b_centers()
-        # Filter bills for B2B centers only
-        b2b_bills = [bill for bill in app.bills if bill['centre_name'] in b2b_centers]
-        
-        if not b2b_bills:
+        df = app.df.copy()
+        b2b_df = df[df['MobileNumber'].astype(str).str.strip().str.upper() == 'B2B']
+        bills = []
+        for center_name, group in b2b_df.groupby('CENTER NAME'):
+            if pd.isna(center_name) or center_name == '':
+                continue
+            test_items = []
+            total_mrp = 0
+            total_rate = 0
+            total_sharing = 0
+            for _, row in group.iterrows():
+                mrp = safe_float_conversion(row['MRP'])
+                rate = safe_float_conversion(row['CentreTestRate'])
+                sharing_amount = mrp - rate
+                test_item = {
+                    'registered_date': safe_date_conversion(row['RegisteredDate']),
+                    'visit_code': str(safe_int_conversion(row['PatientVisitCode'])),
+                    'patient_name': str(row['PatientName']) if pd.notna(row['PatientName']) else 'N/A',
+                    'test_name': str(row['TEST NAME']) if pd.notna(row['TEST NAME']) else 'N/A',
+                    'test_type': str(row.get('TEST TYPE', 'Other')).strip(),
+                    'mrp': mrp,
+                    'rate': rate,
+                    'sharing_amount': sharing_amount
+                }
+                test_items.append(test_item)
+                total_mrp += mrp
+                total_rate += rate
+                total_sharing += sharing_amount
+            invoice_number = invoice_generator.generate()
+            bill = {
+                'centre_name': str(center_name),
+                'test_items': test_items,
+                'total_mrp': total_mrp,
+                'total_rate': total_rate,
+                'total_sharing': total_sharing,
+                'bill_date': datetime.now().strftime('%Y-%m-%d'),
+                'bill_number': invoice_number,
+                'center_type': 'B2B',
+                'amount_in_words': amount_converter.convert(total_rate)
+            }
+            bills.append(bill)
+        if not bills:
             flash('No B2B bills found in the uploaded data', 'error')
             return redirect(url_for('bills'))
-        
-        app.bills = b2b_bills
-        flash(f'Generated {len(b2b_bills)} B2B bills', 'success')
+        app.bills = bills
+        flash(f'Generated {len(bills)} B2B bills', 'success')
         return redirect(url_for('bills'))
     except Exception as e:
         logger.error(f"Error in generate_b2b_bills: {e}")
@@ -788,31 +460,35 @@ def download_bill(bill_index):
         bill = app.bills[bill_index]
         fmt = request.args.get('format', 'html').lower()
         if fmt == 'excel':
+            # Excel in-memory using pandas
+            buffer = BytesIO()
+            df = pd.DataFrame(bill['test_items'])
+            df.to_excel(buffer, index=False)
+            buffer.seek(0)
             filename = f"{bill['bill_number']}.xlsx"
-            filepath = os.path.join('bills', 'excel', filename)
-            if not os.path.exists(filepath):
-                try:
-                    from medical_billing_app import MedicalBillingProcessor
-                    processor = MedicalBillingProcessor()
-                    processor.generate_excel_bill(bill)
-                except Exception as e:
-                    logger.error(f"Error generating Excel for bill: {e}")
-                    flash('Could not generate Excel file for this bill', 'error')
-                    return redirect(url_for('view_bill', bill_index=bill_index))
-            return send_file(filepath, as_attachment=True, download_name=filename)
+            return send_file(buffer, mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', as_attachment=True, download_name=filename)
         elif fmt == 'pdf':
-            filename = f"{bill['bill_number']}.pdf"
-            filepath = os.path.join('bills', 'pdf', filename)
-            if not os.path.exists(filepath):
+            # PDF using pdfkit or xhtml2pdf
+            html_content = render_template('bill_pdf.html', bill=bill)
+            pdf_buffer = BytesIO()
+            try:
+                import pdfkit
+                pdf = pdfkit.from_string(html_content, False)
+                pdf_buffer.write(pdf)
+                pdf_buffer.seek(0)
+            except Exception:
                 try:
-                    from medical_billing_app import MedicalBillingProcessor
-                    processor = MedicalBillingProcessor()
-                    processor.generate_pdf_bill(bill)
+                    from xhtml2pdf import pisa
+                    pisa_status = pisa.CreatePDF(html_content, dest=pdf_buffer)
+                    if pisa_status.err:
+                        raise Exception("xhtml2pdf generation failed")
+                    pdf_buffer.seek(0)
                 except Exception as e:
-                    logger.error(f"Error generating PDF for bill: {e}")
+                    logger.error(f"PDF generation failed: {e}")
                     flash('Could not generate PDF file for this bill', 'error')
                     return redirect(url_for('view_bill', bill_index=bill_index))
-            return send_file(filepath, as_attachment=True, download_name=filename)
+            filename = f"{bill['bill_number']}.pdf"
+            return send_file(pdf_buffer, mimetype='application/pdf', as_attachment=True, download_name=filename)
         else:
             html_content = render_template('bill_pdf.html', bill=bill)
             with tempfile.NamedTemporaryFile(mode='w', suffix='.html', delete=False, encoding='utf-8') as f:
@@ -822,7 +498,7 @@ def download_bill(bill_index):
     except Exception as e:
         logger.error(f"Error in download_bill: {e}")
         flash('An error occurred while downloading the bill', 'error')
-        return redirect(url_for('view_bill', bill_index=bill_index))
+    return redirect(url_for('view_bill', bill_index=bill_index))
 
 @app.route('/download_all_bills')
 def download_all_bills():
