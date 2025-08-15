@@ -477,5 +477,8 @@ python app_enhanced.py
 **Version**: 2.0 Enhanced  
 **Last Updated**: January 2024  
 **License**: MIT License
+**if __name__ == '__main__':
+
+  **  app.run(debug=True, host='0.0.0.0', port=5000) 
 
 For technical implementation details, see [`IMPLEMENTATION_SUMMARY.md`](IMPLEMENTATION_SUMMARY.md)
